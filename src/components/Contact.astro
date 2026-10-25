@@ -1,10 +1,10 @@
 ---
 const classLabel = "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
-const classInput = "shadow-sm bg-black/5 dark:bg-white/5 border border-black/10 boeder-gray-500 dark:border-white/10 dark:border-gray-300 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light";
+const classInput = "shadow-sm bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-gray-900 text-sm rounded-lg block w-full p-2.5 transition focus:outline-none focus:ring-2 focus:ring-sky-500/60 focus:border-sky-500 dark:placeholder-gray-400 dark:text-white";
 ---
 
 <form class="w-full mx-auto" action="https://formsubmit.co/2ab20756f9f51e1c02ad180bf84725ab" method="POST">
-	<div class="mb-5">
+	<div class="mb-5" data-reveal>
 		<label for="name" class={classLabel}>Nombre</label>
 		<input
 			type="text"
@@ -15,7 +15,7 @@ const classInput = "shadow-sm bg-black/5 dark:bg-white/5 border border-black/10 
 			required
 		/>
 	</div>
-	<div class="mb-5 grid md:grid-cols-2 md:gap-6">
+	<div class="mb-5 grid md:grid-cols-2 md:gap-6" data-reveal style="--reveal-delay:80ms">
 		<div class="relative z-0 w-full">
 			<label for="email" class={classLabel}>Tu email</label>
 			<input
@@ -23,7 +23,7 @@ const classInput = "shadow-sm bg-black/5 dark:bg-white/5 border border-black/10 
 				id="email"
 				name="email"
 				class={classInput}
-				placeholder="name@axamplee.com"
+				placeholder="name@ejemplo.com"
 				required
 			/>
 		</div>
@@ -39,7 +39,7 @@ const classInput = "shadow-sm bg-black/5 dark:bg-white/5 border border-black/10 
 			/>
 		</div>
 	</div>
-	<div class="mb-5">
+	<div class="mb-5" data-reveal style="--reveal-delay:160ms">
 		<label for="message" class={classLabel}>Tu mensaje</label>
 		<textarea
 			id="message"
@@ -48,15 +48,17 @@ const classInput = "shadow-sm bg-black/5 dark:bg-white/5 border border-black/10 
 			class={classInput}
 			placeholder="Escribe algo..."></textarea>
 	</div>
-	<input
-		type="submit"
-		value="Enviar"
-		class="text-white cursor-pointer bg-sky-500 dark:bg-sky-300 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-sky-400 dark:focus:ring-blue-800"
-		>
+	<div data-reveal style="--reveal-delay:240ms">
+		<input
+			type="submit"
+			value="Enviar"
+			class="text-white cursor-pointer bg-sky-500 dark:bg-sky-300 dark:text-gray-900 hover:bg-sky-600 dark:hover:bg-sky-400 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:focus:ring-sky-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition"
+		/>
+	</div>
 
 	<input type="hidden" name="_next" value="https://www.moraless.me/index.html">
 	<input type="hidden" name="_captcha" value="false">
 	<input type="hidden" name="_template" value="box">
 	<input type="hidden" name="_subject" value="Contacto desde portafolio">
-	<input type="hidden" name="_autoresponse" value="your custom message">
+	<input type="hidden" name="_autoresponse" value="Gracias por escribir, te respondo pronto. - Jose Morales">
 </form>

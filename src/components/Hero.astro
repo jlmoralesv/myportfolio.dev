@@ -1,55 +1,170 @@
 ---
-const personalImageAlt = "Jose Morales - Desarrollador web"
 import Badge from "@/components/Badge.astro"
 import LinkedInIcon from "@/components/icons/LinkedInIcon.astro"
 import MailIcon from "@/components/icons/MailIcon.astro"
 import SocialPill from "@/components/SocialPill.astro"
 import GitHubIcon from "./icons/GitHubIcon.astro"
 import DowloadIcon from "./icons/DowloadIcon.astro"
+import TechSphere from "./TechSphere.astro"
+
+const personalImageAlt =
+  "Logo de Jose Morales - Cloud Architect y desarrollador full stack"
+
+const ROLES = ["Full Stack Developer", "Cloud Architect", "AI-First Engineer"]
+
+
 ---
 
-<div class="max-w-xl">
-  <div class="flex gap-4 mb-4">
-    <img
-      class="rounded-full shadow-lg size-16"
-      src="/dev-me.gif"
-      alt={personalImageAlt}
-    />
-    <a
-      href="https://www.linkedin.com/in/josemoralesv24/"
-      target="_blank"
-      rel="noopener"
-      class="flex items-center transition md:justify-center md:hover:scale-105"
+<div class="relative">
+  <TechSphere />
+
+  <div class="relative max-w-xl">
+    <div class="flex items-center gap-4 mb-4 fade-up" style="--d:0ms">
+      <img
+        class="w-auto h-12 logo-mark shrink-0"
+        src="/logo_portfolio.png"
+        alt={personalImageAlt}
+        width="103"
+        height="48"
+      />
+      <a
+        href="https://www.linkedin.com/in/jlmoralesv/"
+        target="_blank"
+        rel="noopener"
+        class="flex items-center transition md:justify-center md:hover:scale-105"
+      >
+        <Badge>Disponible para trabajar</Badge>
+      </a>
+
+      <span
+        class="hidden sm:block px-2 py-0.5 text-[11px] uppercase tracking-wider rounded-md border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-gray-600 dark:text-gray-400"
+      >
+        Lima, Peru
+      </span>
+    </div>
+
+    <h1
+      class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white fade-up"
+      style="--d:80ms"
     >
-      <Badge>Disponible para trabajar</Badge>
-    </a>
-  </div>
-  <h1
-    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
-  >
-  Hey, soy Jose Morales
-  </h1>
-  <p
-    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
-  >
-    <span class="opacity-80">Desarrollador Web Full Stack</span> con <span>dos años de experiencia</span>. De Lima - Peru. Estudiante de <span>Ingeniería de Software</span>.
-  </p>
-  <nav class="flex flex-wrap gap-4 mt-8">
-    <SocialPill href="https://www.linkedin.com/in/josemoralesv24/">
+      Hey, soy Jose Morales
+    </h1>
+
+    <p
+      class="mt-4 text-xl font-semibold text-yellow-500 dark:text-yellow-200 fade-up"
+      style="--d:140ms"
+    >
+      <span class="roles" aria-label={ROLES.join(", ")}>
+        <span class="roles-track">
+          {ROLES.map((role) => <span class="roles-item">{role}</span>)}
+          <span class="roles-item" aria-hidden="true">{ROLES[0]}</span>
+        </span>
+      </span>
+      <span class="caret" aria-hidden="true"></span>
+    </p>
+
+    <p
+      class="mt-4 text-lg text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300 text-pretty fade-up"
+      style="--d:200ms"
+    >
+      Me gusta ser dueño del cuadro completo: <strong>del pixel en pantalla al pod
+      en producción</strong>. Arquitectura cloud, infraestructura como código e
+      <strong>IA integrada al producto</strong>. Estudiante de
+      <strong>Ingeniería de Software</strong>.
+    </p>
+
+    <nav class="flex flex-wrap gap-4 mt-8 fade-up" style="--d:260ms">
+      <SocialPill href="https://www.linkedin.com/in/jlmoralesv/">
         <LinkedInIcon class="size-4 md:size-6" />
         LinkedIn
-    </SocialPill>
-    <SocialPill href="https://github.com/jmorales01">
+      </SocialPill>
+      <SocialPill href="https://github.com/jlmoralesv">
         <GitHubIcon class="size-4 md:size-6" />
         GitHub
-    </SocialPill>
-    <SocialPill href="mailto:joseluismoralesvega24@gmail.com" target="_blank">
+      </SocialPill>
+      <SocialPill href="mailto:joseluismoralesvega24@gmail.com" target="_blank">
         <MailIcon class="size-4 md:size-6" />
         Gmail
-    </SocialPill>
-    <SocialPill href="https://cv.moraless.me/">
+      </SocialPill>
+      <SocialPill href="https://cv.moraless.me/">
         <DowloadIcon class="size-4 md:size-6" />
         Ver CV
-    </SocialPill>
-  </nav>
+      </SocialPill>
+    </nav>
+  </div>
+
 </div>
+
+<style>
+  .fade-up {
+    animation: fade-up 0.9s ease-out var(--d, 0ms) both;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  .roles {
+    display: inline-block;
+    height: 1.4em;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+
+  .roles-track {
+    display: block;
+    animation: roles-slide 10.5s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  }
+
+  .roles-item {
+    display: block;
+    height: 1.4em;
+    line-height: 1.4em;
+  }
+
+  @keyframes roles-slide {
+    0%,
+    28% {
+      transform: translateY(0);
+    }
+    33%,
+    61% {
+      transform: translateY(-1.4em);
+    }
+    66%,
+    94% {
+      transform: translateY(-2.8em);
+    }
+    100% {
+      transform: translateY(-4.2em);
+    }
+  }
+
+  .caret {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1.05em;
+    vertical-align: text-bottom;
+    background: currentColor;
+    animation: caret-blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes caret-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up,
+    .roles-track,
+    .caret {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

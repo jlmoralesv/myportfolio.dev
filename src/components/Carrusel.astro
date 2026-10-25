@@ -1,17 +1,24 @@
 ---
-const { images, carruselId } = Astro.props;
+import ChevronIcon from "./icons/ChevronIcon.astro"
+
+const { images, carruselId } = Astro.props
+
+const navButtonClass =
+  "absolute top-1/2 -translate-y-1/2 z-10 grid place-items-center size-8 rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/70 hover:scale-105 opacity-100 md:opacity-0 md:group-hover/car:opacity-100 focus-visible:opacity-100"
 ---
 
-<div 
-  id={carruselId} 
-  class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-hidden rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50"
+<div
+  id={carruselId}
+  data-carrusel
+  class="group/car relative flex flex-col items-center w-full gap-8 overflow-hidden transition duration-500 ease-in-out transform shadow-xl rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-black/10 dark:lg:border-white/10"
 >
-  <div class="carousel-container relative w-full h-56">
+  <div class="relative w-full h-56">
     {
-      images.map(({src, alt}, idx) => (
+      images.map(({ src, alt }: { src: string; alt: string }, idx: number) => (
         <img
+          data-slide
           alt={alt}
-          class={`absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-500 ease-in-out ${idx === 0 ? 'opacity-100' : 'opacity-0'} md:scale-110 md:group-hover:scale-105`}
+          class={`absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-700 ease-in-out ${idx === 0 ? "opacity-100" : "opacity-0"} md:group-hover:scale-105`}
           loading="lazy"
           src={src}
           data-index={idx}
@@ -19,77 +26,113 @@ const { images, carruselId } = Astro.props;
       ))
     }
   </div>
+
+  {
+    images.length > 1 && (
+      <>
+        <button
+          data-prev
+          type="button"
+          aria-label="Imagen anterior"
+          class={`left-2 ${navButtonClass}`}
+        >
+          <ChevronIcon class="size-5 rotate-90" />
+        </button>
+        <button
+          data-next
+          type="button"
+          aria-label="Imagen siguiente"
+          class={`right-2 ${navButtonClass}`}
+        >
+          <ChevronIcon class="size-5 -rotate-90" />
+        </button>
+
+        <div class="absolute bottom-3 z-10 flex gap-1.5">
+          {images.map((_: unknown, idx: number) => (
+            <button
+              data-dot
+              type="button"
+              aria-label={`Ir a la imagen ${idx + 1}`}
+              aria-current={idx === 0 ? "true" : "false"}
+              class="h-1.5 w-1.5 rounded-full bg-white/50 transition-all duration-300 hover:bg-white"
+            />
+          ))}
+        </div>
+      </>
+    )
+  }
 </div>
 
+<style>
+  [data-dot][aria-current="true"] {
+    width: 1rem;
+    background-color: rgb(255 255 255);
+  }
+</style>
+
 <script>
-  const PROJECTS = [
-    { code: 'gofacturas' },
-    { code: 'goventas' },
-    { code: 'api' },
-    { code: 'arcade' },
-    { code: 'appmuni' },
-    { code: 'data-analitics' },
-    { code: 'sckincheck' },
-  ];
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)")
 
-  document.addEventListener('DOMContentLoaded', () => {
-    PROJECTS.forEach(project => {
-      const carrusel = document.querySelector(`#${project.code}`);
-      if (!carrusel) return;
+  document.querySelectorAll<HTMLElement>("[data-carrusel]").forEach((root) => {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>("[data-slide]"))
+    if (slides.length < 2) return
 
-      const images = Array.from(carrusel.querySelectorAll('img'));
-      if (images.length === 0) return;
+    const dots = Array.from(root.querySelectorAll<HTMLElement>("[data-dot]"))
+    let current = 0
+    let timer: number | undefined
+    let paused = false
 
-      let currentIndex = 0;
-      let intervalId = null;
+    const show = (next: number) => {
+      current = (next + slides.length) % slides.length
+      slides.forEach((slide, idx) => {
+        slide.style.opacity = idx === current ? "1" : "0"
+      })
+      dots.forEach((dot, idx) => {
+        dot.setAttribute("aria-current", String(idx === current))
+      })
+    }
 
-      function showImage(index) {
-        images.forEach((image, idx) => {
-          image.style.opacity = idx === index ? '1' : '0';
-        });
-      }
+    const stop = () => {
+      window.clearInterval(timer)
+      timer = undefined
+    }
 
-      function nextImage() {
-        const nextIndex = (currentIndex + 1) % images.length;
-        
-        // Fade out current image
-        images[currentIndex].style.opacity = '0';
-        
-        // Wait for fade out transition
-        setTimeout(() => {
-          // Fade in next image
-          images[nextIndex].style.opacity = '1';
-          currentIndex = nextIndex;
-        }, 500);
-      }
+    const play = () => {
+      if (timer || paused || prefersReduced.matches) return
+      timer = window.setInterval(() => show(current + 1), 3500)
+    }
 
-      function startInterval() {
-        if (!intervalId && images.length > 1) {
-          intervalId = setInterval(nextImage, 2000);
-        }
-      }
+    const goTo = (next: number) => {
+      show(next)
+      stop()
+      play()
+    }
 
-      function stopInterval() {
-        if (intervalId) {
-          clearInterval(intervalId);
-          intervalId = null;
-        }
-      }
+    root
+      .querySelector<HTMLElement>("[data-prev]")
+      ?.addEventListener("click", () => goTo(current - 1))
+    root
+      .querySelector<HTMLElement>("[data-next]")
+      ?.addEventListener("click", () => goTo(current + 1))
+    dots.forEach((dot, idx) =>
+      dot.addEventListener("click", () => goTo(idx))
+    )
 
-      // Add event listeners only if there's more than one image
-      if (images.length > 1) {
-        carrusel.addEventListener('mouseenter', startInterval);
-        carrusel.addEventListener('mouseleave', () => {
-          stopInterval();
-        });
-      }
+    const setPaused = (value: boolean) => {
+      paused = value
+      value ? stop() : play()
+    }
 
-      // Cleanup on page leave
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          stopInterval();
-        }
-      });
-    });
-  });
+    root.addEventListener("mouseenter", () => setPaused(true))
+    root.addEventListener("mouseleave", () => setPaused(false))
+    root.addEventListener("focusin", () => setPaused(true))
+    root.addEventListener("focusout", () => setPaused(false))
+
+    new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? play() : stop()),
+      { threshold: 0.4 }
+    ).observe(root)
+
+    show(0)
+  })
 </script>

@@ -19,11 +19,15 @@ import ExperienceItem from "./ExperienceItem.astro"
 
 <ol class="relative border-s border-gray-200 dark:border-gray-700 ml-2">
     {
-        EXPERIENCE.map((experience) => (
-        <li class="mb-10 ms-4">
+        EXPERIENCE.map((experience, index) => (
+        <li
+            class="mb-10 ms-4 group/exp"
+            data-reveal
+            style={`--reveal-delay:${index * 120}ms`}
+        >
             <ExperienceItem {...experience}/>
         </li>
-            
+
         ))
     }
 </ol>

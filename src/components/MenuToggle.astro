@@ -1,13 +1,21 @@
 ---
 import MenuIcon from "./icons/MenuIcon.astro";
 
-const { items } = Astro.props;
+interface NavItem {
+    title: string;
+    label: string;
+    url: string;
+}
+
+const { items } = Astro.props as { items: NavItem[] };
 ---
 
 <div class="md:hidden relative mx-3 py-1 px-2 border-1 rounded-md bg-black/10 dark:bg-white/10 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
     <button
         id="navbar-toggle-btn"
         class="appearance-none border-none flex hover:scale-115 transition"
+        aria-expanded="false"
+        aria-controls="navbar-menu"
     >
         <span class="sr-only">Open main menu</span>
         <MenuIcon class="size-5 transition-all text-black/60 dark:text-white" />
@@ -20,8 +28,8 @@ const { items } = Astro.props;
         <ul>
         {
             items.map((link) => (
-            <li class="navbar-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm">
-                <a class="block w-full hover:text-yellow-500 dark:hover:text-yellow-400 text-lg" 
+            <li class="navbar-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm transition-colors">
+                <a class="block w-full hover:text-yellow-500 dark:hover:text-yellow-400 text-lg transition-colors"
                 aria-label={link.label} href={link.url}>
                 {link.title}
                 </a>
@@ -52,38 +60,41 @@ const { items } = Astro.props;
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const toggleBtn = document.getElementById('navbar-toggle-btn');
-      const navbarMenu = document.getElementById('navbar-menu');
-  
-      // Función para abrir el menú
-      function openMenu() {
-        navbarMenu.classList.add('open');
-        navbarMenu.style.display = 'block';
-        document.addEventListener('click', closeMenuOnClickOutside);
+  const toggleBtn = document.getElementById("navbar-toggle-btn")
+  const navbarMenu = document.getElementById("navbar-menu")
+
+  if (toggleBtn && navbarMenu) {
+    const closeMenuOnClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node
+      if (!navbarMenu.contains(target) && !toggleBtn.contains(target)) {
+        closeMenu()
       }
-  
-      // Función para cerrar el menú
-      function closeMenu() {
-        navbarMenu.classList.remove('open');
-        navbarMenu.style.display = 'none';
-        document.removeEventListener('click', closeMenuOnClickOutside);
+    }
+
+    function openMenu() {
+      navbarMenu!.classList.add("open")
+      navbarMenu!.style.display = "block"
+      toggleBtn!.setAttribute("aria-expanded", "true")
+      document.addEventListener("click", closeMenuOnClickOutside)
+    }
+
+    function closeMenu() {
+      navbarMenu!.classList.remove("open")
+      navbarMenu!.style.display = "none"
+      toggleBtn!.setAttribute("aria-expanded", "false")
+      document.removeEventListener("click", closeMenuOnClickOutside)
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      if (navbarMenu.classList.contains("open")) {
+        closeMenu()
+      } else {
+        openMenu()
       }
-  
-      // Función para cerrar el menú si se hace clic fuera de él
-      function closeMenuOnClickOutside(event) {
-        if (!navbarMenu.contains(event.target) && !toggleBtn.contains(event.target)) {
-          closeMenu();
-        }
-      }
-  
-      // Evento de clic en el botón para alternar el menú
-      toggleBtn.addEventListener('click', () => {
-        if (navbarMenu.classList.contains('open')) {
-          closeMenu();
-        } else {
-          openMenu();
-        }
-      });
-    });
-  </script>
+    })
+
+    navbarMenu
+      .querySelectorAll("a")
+      .forEach((link) => link.addEventListener("click", closeMenu))
+  }
+</script>

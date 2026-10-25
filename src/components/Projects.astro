@@ -1,5 +1,6 @@
 ---
 import PHPIcon from "./icons/PhpIcon.astro";
+import TypeScriptIcon from "./icons/TypeScriptIcon.astro";
 import JavaScriptIcon from "./icons/JavaScriptIcon.astro";
 import VueJSIcon from "./icons/VueJSIcon.astro";
 import LinkButton from "./LinkButton.astro";
@@ -112,7 +113,7 @@ const TAGS = {
     TypeScript: {
         name: "TypeScript",
         class: classGlobal,
-        icon: NodeIcon,
+        icon: TypeScriptIcon,
     },
 	Redis: {
 		name: "Redis",
@@ -223,7 +224,7 @@ const PROJECTS = [
 		description:
 			"App de consultas de DNI, Placa de vehiculo, y otras funcionalidades, desarrollada con Flutter y Firebase para la municipalidad de VMT.",
 		link: "",
-		github: "https://github.com/jmorales01/hackathon-api",
+		github: "https://github.com/jlmoralesv/hackathon-api",
 		image: [
 			{src:"/projects/app1.webp", alt:'APP de consultas municipales'},
 			{src:"/projects/app2.webp", alt:'Home de la APP de consultas municipales'},
@@ -238,7 +239,7 @@ const PROJECTS = [
 		description:
 			"Plataforma web para la deteccion de lesiones en la piel, usando IA entrenado en V8 de Google.",
 		link: "https://skincheck-app.vercel.app",
-		github: "https://github.com/jmorales01/skincheck-app",
+		github: "https://github.com/jlmoralesv/skincheck-app",
 		image: [
 			{src:"/projects/skincheck1.webp", alt:'APP de consultas municipales'},
 			{src:"/projects/skincheck2.webp", alt:'Home de la APP de consultas municipales'},
@@ -270,7 +271,7 @@ const PROJECTS = [
 		description:
 			"Prision Arcana, juego de tipo arcade desarrollado en Unity con el lenguaje C++, echo para escritorio.",
 		link: "",
-		github: "ttps://github.com/jmorales01/prision_arcana",
+		github: "https://github.com/jlmoralesv/prision_arcana",
 		image: [
 			{src:"/projects/arcade-1.webp", alt:'Juego ARCADE'},
 			{src:"/projects/arcade-2.webp", alt:'Juego ARCADE'},
@@ -284,7 +285,7 @@ const PROJECTS = [
 		description:
 			"API REST con Express para una hackathon, endpoints para CRUD de cursos, alumnos, salas etc.",
 		link: "",
-		github: "https://github.com/jmorales01/hackathon-api",
+		github: "https://github.com/jlmoralesv/hackathon-api",
 		image: [
 			{src:"/projects/api-1.webp", alt:'API REST con Express'},
 			{src:"/projects/api-3.webp", alt:'API REST con Express'},
@@ -304,7 +305,7 @@ const CATEGORIES = [
 ---
 
 <div class="flex flex-col gap-8">
-	<nav class="flex justify-start">
+	<nav class="flex justify-start" data-reveal>
 		<ul
 			class="flex flex-wrap gap-6"
 		>
@@ -312,8 +313,9 @@ const CATEGORIES = [
 				CATEGORIES.map(({ id, name }) => (
 					<li>
 						<button
-							class="category-btn px-4 py-0.5 text-sm rounded-md transition-all duration-300 bg-black/10 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-gray-700"
+							class="category-btn px-4 py-0.5 text-sm rounded-md transition-all duration-300 bg-black/10 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105"
 							data-category={id}
+							aria-pressed={id === "all" ? "true" : "false"}
 						>
 							{name}
 						</button>
@@ -331,7 +333,9 @@ const CATEGORIES = [
 					index
 				) => (
 					<article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 project-item transition-all duration-300"
-						data-type={type}>
+						data-type={type}
+						data-reveal
+						style={`--reveal-delay:${index * 90}ms`}>
 						<div class="w-full md:w-1/2">
 							<Carrusel images={image} carruselId={code} />
 						</div>
@@ -380,43 +384,61 @@ const CATEGORIES = [
 	</div>
 </div>
 
+<style>
+	.project-item.is-filtered {
+		display: none;
+	}
+
+	.project-item.filter-in {
+		animation: filter-in 0.45s ease-out;
+	}
+
+	@keyframes filter-in {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.project-item.filter-in {
+			animation: none;
+		}
+	}
+</style>
+
 <script>
-	document.addEventListener("DOMContentLoaded", () => {
-		const categoryButtons = document.querySelectorAll(".category-btn");
-		const projects = document.querySelectorAll(".project-item");
+	const ACTIVE_CLASSES = ["bg-gray-200", "dark:bg-gray-700"]
 
-		// Marcar el botón "Todos" como activo por defecto
-		const allButton = document.querySelector('[data-category="all"]');
-		allButton?.classList.add("bg-gray-200", "dark:bg-gray-700");
+	const categoryButtons =
+		document.querySelectorAll<HTMLButtonElement>(".category-btn")
+	const projects = document.querySelectorAll<HTMLElement>(".project-item")
 
-		categoryButtons.forEach((button) => {
-			button.addEventListener("click", () => {
-				// Remover clase activa de todos los botones
-				categoryButtons.forEach((btn) => {
-					btn.classList.remove("bg-gray-200", "dark:bg-gray-700");
-				});
+	document
+		.querySelector('[data-category="all"]')
+		?.classList.add(...ACTIVE_CLASSES)
 
-				// Agregar clase activa al botón clickeado
-				button.classList.add("bg-gray-200", "dark:bg-gray-700");
+	categoryButtons.forEach((button) => {
+		button.addEventListener("click", () => {
+			categoryButtons.forEach((btn) => {
+				btn.classList.remove(...ACTIVE_CLASSES)
+				btn.setAttribute("aria-pressed", "false")
+			})
+			button.classList.add(...ACTIVE_CLASSES)
+			button.setAttribute("aria-pressed", "true")
 
-				const selectedCategory = button.getAttribute("data-category");
+			const selected = button.dataset.category ?? "all"
 
-				projects.forEach((project) => {
-					const projectType = project.getAttribute("data-type");
+			projects.forEach((project) => {
+				const visible = selected === "all" || project.dataset.type === selected
+				project.classList.toggle("is-filtered", !visible)
+				project.classList.remove("filter-in")
 
-					if (selectedCategory === "all" || selectedCategory === projectType) {
-						(project as HTMLElement).style.display = "flex";
-						(project as HTMLElement).style.opacity = "1";
-    					(project as HTMLElement).style.transform = "translateY(0)";
-					} else {
-						(project as HTMLElement).style.opacity = "0";
-    					(project as HTMLElement).style.transform = "translateY(20px)";
-						setTimeout(() => {
-							(project as HTMLElement).style.display = "none";
-						}, 300);
-					}
-				});
-			});
-		});
-	});
+				if (!visible) return
+				// reinicia la animacion: sin leer el layout el navegador reusa el frame anterior
+				void project.offsetWidth
+				project.classList.add("filter-in")
+			})
+		})
+	})
 </script>

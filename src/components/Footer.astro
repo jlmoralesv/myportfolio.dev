@@ -1,27 +1,24 @@
 ---
     const currentYear = new Date().getFullYear();
+    const linkClass = "me-4 md:me-6 text-gray-700 dark:text-gray-300 transition-colors hover:text-yellow-500 dark:hover:text-yellow-200 hover:underline";
 ---
 
 <footer class="rounded-lg shadow bg-black/10 backdrop-blur-lg m-4 w-full mx-auto mt-32">
-    <div class="max-w-screen-md mx-auto p-4 md:py-8">
+    <div class="max-w-screen-md mx-auto p-4 md:py-8" data-reveal>
         <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="https://www.linkedin.com/in/josemoralesv24/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                <img src="/dev.gif" class="size-8" alt="Logo de mi perfil" />
-                <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap text-gray-700 dark:text-gray-300">Hello World</span> -->
+            <a href="https://www.linkedin.com/in/jlmoralesv/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse transition hover:scale-110">
+                <img src="/dev.gif" class="w-auto h-8 logo-mark" alt="Logo de Jose Morales" width="68" height="32" />
             </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-white/90 sm:mb-0 dark:text-gray-400">
+            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0">
                 <li>
-                    <a href="/ideas" class="hover:underline me-4 md:me-6 text-gray-700 dark:text-gray-300">Ideas de proyectos</a>
+                    <a href="/components" class={linkClass}>Componentes</a>
                 </li>
                 <li>
-                    <a href="/components" class="hover:underline me-4 md:me-6 text-gray-700 dark:text-gray-300">Componentes</a>
-                </li>
-                <li>
-                    <a href="https://github.com/midudev/" class="hover:underline me-4 md:me-6 text-gray-700 dark:text-gray-300">Creditos a <strong>midudev</strong></a>
+                    <a href="https://github.com/midudev/" class={linkClass}>Creditos a <strong>midudev</strong></a>
                 </li>
             </ul>
         </div>
         <hr class="my-6 border-gray-400 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span class="block text-xs text-yellow-400 dark:text-yellow-200/90 sm:text-center sm:text-sm">© {currentYear} <a href="https://www.linkedin.com/in/josemoralesv24/" class="hover:underline">JossMorales™</a>. Todos los derechos reservados.</span>
+        <span class="block text-xs text-yellow-400 dark:text-yellow-200/90 sm:text-center sm:text-sm">© {currentYear} <a href="https://www.linkedin.com/in/jlmoralesv/" class="transition hover:underline hover:opacity-80">JossMorales™</a>. Todos los derechos reservados.</span>
     </div>
 </footer>

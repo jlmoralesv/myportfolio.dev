@@ -1,8 +1,6 @@
 ---
-import LenguageSelector from "./LenguageSelector.astro"
 import MenuToggle from "./MenuToggle.astro"
 import ThemeToggle from "./ThemeToggle.astro"
-import MenuIcon from "./icons/MenuIcon.astro"
 
 
 const navItems = [
@@ -46,62 +44,37 @@ const navItems = [
         </a>
       ))
     }
-	<!-- <LenguageSelector /> -->
     <ThemeToggle />
     <MenuToggle items={navItems} />
   </nav>
 </header>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const sections = document.querySelectorAll("section")
-    const navItems = document.querySelectorAll("header nav a")
-    const navbarMenu = document.querySelectorAll("navbar-menu");
+  const sections = document.querySelectorAll("section")
+  const navItems = document.querySelectorAll("header nav a")
 
-    const callback = (entries: any[]) => {
+  const observer = new IntersectionObserver(
+    (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navItems.forEach((item) => {
-            if (item.getAttribute("aria-label") == entry.target.id) {
-              item.classList.add("text-yellow-500")
-            } else {
-              item.classList.remove("text-yellow-500")
-            }
-          })
-        }
-      })
-    }
-
-    const observer = new IntersectionObserver(callback, {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.3,
-    })
-
-    sections.forEach((section) => {
-      observer.observe(section)
-    })
-
-    // Cleanup function
-    document.onvisibilitychange = () => {
-      if (document.visibilityState === "hidden") {
-        observer.disconnect()
-      } else {
-        sections.forEach((section) => {
-          observer.observe(section)
+        if (!entry.isIntersecting) return
+        navItems.forEach((item) => {
+          const active = item.getAttribute("aria-label") === entry.target.id
+          item.classList.toggle("text-yellow-500", active)
+          item.classList.toggle("dark:text-yellow-400", active)
         })
-      }
-    }
-
-    // Navbar menu
-    navbarMenu.forEach((menu) => {
-      menu.addEventListener("click", () => {
-        navbarMenu.forEach((item) => {
-          item.classList.remove("open")
-        })
-        menu.classList.toggle("open")
       })
-    })
+    },
+    { threshold: 0.3 }
+  )
+
+  sections.forEach((section) => observer.observe(section))
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      observer.disconnect()
+    } else {
+      sections.forEach((section) => observer.observe(section))
+    }
   })
 </script>
 
@@ -118,7 +91,8 @@ const navItems = [
 
   @keyframes nav-shadown {
     to {
-      @apply shadow-lg ring-1 backdrop-blur bg-black/20 dark:bg-white/20 ring-white/10;
+      /* sin `dark:`: un variant dentro de @keyframes genera CSS invalido y el minificador borra la regla */
+      @apply shadow-lg ring-1 backdrop-blur bg-black/20 ring-white/10;
     }
   }
 </style>

@@ -10,59 +10,49 @@ import SectionContainer from '../components/SectionContainer.astro';
 import Hero from '@/components/Hero.astro';
 import ContactIcon from '@/components/icons/ContactIcon.astro';
 import Contact from '@/components/Contact.astro';
+
+const h2Class = "flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white";
 ---
 
 <Layout title="jl mora"
-	description="Portafolio de Jose Morales - Desarrollador y programador web">
+	description="Portafolio de Jose Morales - Cloud Architect, desarrollador full stack y AI-first">
 	<main class="px-4">
-		<SectionContainer class="pt-32 pb-20 md:pt-56 md:pb-36">
-		  <Hero>
-		</Hero>
+		<SectionContainer class="pt-32 pb-16 md:pt-44 md:pb-24">
+			<Hero />
 		</SectionContainer>
-		
+
 		<div class="space-y-24">
 			<SectionContainer id="experiencia">
-			<h2
-				class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
-			>
-				<BriefcaseIcon class="size-8" />
-				Experiencia laboral
-			</h2>
-			<Experience />
+				<h2 class={h2Class} data-reveal>
+					<BriefcaseIcon class="size-8" />
+					Experiencia laboral
+				</h2>
+				<Experience />
 			</SectionContainer>
-		
+
 			<SectionContainer id="proyectos">
-			<h2
-				class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
-			>
-				<CodeIcon class="size-7" />
-				Proyectos
-			</h2>
-			<Projects />
+				<h2 class={h2Class} data-reveal>
+					<CodeIcon class="size-7" />
+					Proyectos
+				</h2>
+				<Projects />
 			</SectionContainer>
-		
+
 			<SectionContainer id="sobre-mi">
-			<h2
-				class="flex items-center mb-6 text-3xl font-semibold gap-x-8 text-black/80 dark:text-white"
-			>
-				<ProfileCheckIcon class="size-8" />
-				Sobre mí
-			</h2>
-			<AboutMe />
+				<h2 class={h2Class} data-reveal>
+					<ProfileCheckIcon class="size-8" />
+					Sobre mí
+				</h2>
+				<AboutMe />
 			</SectionContainer>
+
 			<SectionContainer id="contacto">
-			<h2
-				class="flex items-center mb-6 text-3xl font-semibold gap-x-8 text-black/80 dark:text-white"
-			>
-				<ContactIcon class="size-8" />
-				Contactame
-			</h2>
-			<Contact />
+				<h2 class={h2Class} data-reveal>
+					<ContactIcon class="size-8" />
+					Contactame
+				</h2>
+				<Contact />
 			</SectionContainer>
-	  </div>
+		</div>
 	</main>
 </Layout>
-
-<style>
-	
-</style>
