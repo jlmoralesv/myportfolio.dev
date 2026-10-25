@@ -32,7 +32,7 @@ const lang = getLang(Astro.currentLocale);
 		<!-- End Google Tag Manager -->
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/x-icon" href="/code.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -87,6 +87,7 @@ const lang = getLang(Astro.currentLocale);
 	  display: flex;
 	  flex-direction: column;
 	  min-height: 100vh;
+	  min-height: 100dvh;
 	  overscroll-behavior: none;
 	}
 
@@ -116,7 +117,6 @@ const lang = getLang(Astro.currentLocale);
 		opacity 1.1s ease-out,
 		transform 1.1s ease-out;
 	  transition-delay: var(--reveal-delay, 0ms);
-	  will-change: opacity, transform;
 	}
 
 	[data-reveal].is-visible {

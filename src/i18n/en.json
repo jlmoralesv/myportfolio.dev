@@ -7,7 +7,8 @@
     "experiencia": "Experience",
     "proyectos": "Projects",
     "sobre-mi": "About me",
-    "contacto": "Contact"
+    "contacto": "Contact",
+    "menu": "Open menu"
   },
   "sections": {
     "experiencia": "Work experience",
@@ -21,7 +22,10 @@
     "en": "English"
   },
   "theme": {
-    "label": "Choose theme"
+    "label": "Choose theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   },
   "hero": {
     "logoAlt": "Jose Morales logo - Cloud Architect and full stack developer",
@@ -98,7 +102,7 @@
     "goTo": "Go to image"
   },
   "about": {
-    "imageAlt": "jose morales logo",
+    "imageAlt": "Photo of Jose Morales",
     "paragraphs": [
       "My name is Jose, I'm a <strong>Software Engineer</strong> and I deeply value efficiency and time. That drive is what made me choose this career: it lets me automate processes both for myself and for other people. I'm also passionate about building new solutions through code, turning ideas into useful products.",
       "That interest led me to <strong>cloud architecture</strong>: designing systems that scale on their own, ship through infrastructure as code and use <strong>AI</strong> as part of the product, not as decoration.",

@@ -35,7 +35,7 @@ import { useT } from "@/i18n";
 const t = useT(Astro.currentLocale);
 
 var classGlobal =
-	"bg-black/5 dark:bg-white/5 border border-white/10 border-gray-300 text-black/70 dark:text-white hover:bg-white/10 hover:scale-105 transition";
+	"bg-black/5 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-black/70 dark:text-white hover:bg-white/10 hover:scale-105 transition";
 
 const TAGS = {
 	PHP: {
@@ -183,9 +183,9 @@ const PROJECTS = [
 		link: "https://gofacturas.com/",
 		github: "https://github.com/Emermv/gofacturas/",
 		image: [
-			{src:"/projects/gofacturas-1.webp", alt:'Gofacturas CMR'},
-			{src:"/projects/gofacturas-2.webp", alt:'Gofacturas CMR'},
-			{src:"/projects/gofacturas-3.webp", alt:'Gofacturas CMR'},
+			{src:"/projects/gofacturas-1.webp"},
+			{src:"/projects/gofacturas-2.webp"},
+			{src:"/projects/gofacturas-3.webp"},
 		],
 		tags: [
 			TAGS.PHP,
@@ -202,9 +202,9 @@ const PROJECTS = [
         link: "https://gofacturas.com/",
         github: "https://github.com/Emermv/gofacturas/",
         image: [
-			{src:"/projects/goventas-1.webp", alt:'Gofacturas CMR'},
-			{src:"/projects/goventas-2.webp", alt:'Gofacturas CMR'},
-			{src:"/projects/goventas-3.webp", alt:'Gofacturas CMR'},
+			{src:"/projects/goventas-1.webp"},
+			{src:"/projects/goventas-2.webp"},
+			{src:"/projects/goventas-3.webp"},
 		],
         tags: [
             TAGS.Tailwind,
@@ -223,9 +223,9 @@ const PROJECTS = [
 		link: "",
 		github: "https://github.com/jlmoralesv/hackathon-api",
 		image: [
-			{src:"/projects/app1.webp", alt:'APP de consultas municipales'},
-			{src:"/projects/app2.webp", alt:'Home de la APP de consultas municipales'},
-			{src:"/projects/app3.webp", alt:'Modulos de la APP de consultas municipales'},
+			{src:"/projects/app1.webp"},
+			{src:"/projects/app2.webp"},
+			{src:"/projects/app3.webp"},
 		],
 		tags: [TAGS.Flutter, TAGS.Docker, TAGS.Cloudflare, TAGS.Redis],
 	},
@@ -236,10 +236,10 @@ const PROJECTS = [
 		link: "https://skincheck-app.vercel.app",
 		github: "https://github.com/jlmoralesv/skincheck-app",
 		image: [
-			{src:"/projects/skincheck1.webp", alt:'APP de consultas municipales'},
-			{src:"/projects/skincheck2.webp", alt:'Home de la APP de consultas municipales'},
-			{src:"/projects/skincheck3.webp", alt:'Modulos de la APP de consultas municipales'},
-			{src:"/projects/skincheck4.webp", alt:'Modulos de la APP de consultas municipales'},
+			{src:"/projects/skincheck1.webp"},
+			{src:"/projects/skincheck2.webp"},
+			{src:"/projects/skincheck3.webp"},
+			{src:"/projects/skincheck4.webp"},
 		],
 		tags: [TAGS.Tailwind, TAGS.Docker, TAGS.Supabase, TAGS.Next, TAGS.Cloudflare, TAGS.OpenAI],
 	},
@@ -250,10 +250,10 @@ const PROJECTS = [
 		link: "https://app.powerbi.com/view?r=eyJrIjoiNWUwMTgyOTctODU1Mi00YzFkLWIzOTctMjNjYTVlODZjNzRiIiwidCI6ImM0YTY2YzM0LTJiYjctNDUxZi04YmUxLWIyYzI2YTQzMDE1OCIsImMiOjR9",
 		github: "",
 		image: [
-			{src:"/projects/dashboard1.webp", alt:''},
-			{src:"/projects/dashboard2.webp", alt:''},
-			{src:"/projects/dashboard3.webp", alt:''},
-			{src:"/projects/dashboard4.webp", alt:''},
+			{src:"/projects/dashboard1.webp"},
+			{src:"/projects/dashboard2.webp"},
+			{src:"/projects/dashboard3.webp"},
+			{src:"/projects/dashboard4.webp"},
 		],
 		tags: [TAGS.PowerBI, TAGS.MySQL, TAGS.Supabase, TAGS.PostgreSQL, TAGS.Python, TAGS.Looker],
 	},
@@ -264,8 +264,8 @@ const PROJECTS = [
 		link: "",
 		github: "https://github.com/jlmoralesv/prision_arcana",
 		image: [
-			{src:"/projects/arcade-1.webp", alt:'Juego ARCADE'},
-			{src:"/projects/arcade-2.webp", alt:'Juego ARCADE'},
+			{src:"/projects/arcade-1.webp"},
+			{src:"/projects/arcade-2.webp"},
 		],
 		tags: [TAGS.Cpp, TAGS.Docker, TAGS.Unity],
 	},
@@ -276,8 +276,8 @@ const PROJECTS = [
 		link: "",
 		github: "https://github.com/jlmoralesv/hackathon-api",
 		image: [
-			{src:"/projects/api-1.webp", alt:'API REST con Express'},
-			{src:"/projects/api-3.webp", alt:'API REST con Express'},
+			{src:"/projects/api-1.webp"},
+			{src:"/projects/api-3.webp"},
 		],
 		tags: [TAGS.JavaScript, TAGS.Docker, TAGS.Node, TAGS.MySQL],
 	},
@@ -329,7 +329,10 @@ const projects = PROJECTS.map((project) => ({
 						style={`--reveal-delay:${index * 90}ms`}
 					>
 						<div class="w-full md:w-1/2">
-							<Carrusel images={image} carruselId={code} />
+							<Carrusel
+									images={image.map(({ src }) => ({ src, alt: title }))}
+									carruselId={code}
+								/>
 						</div>
 
 						<div class="w-full md:w-1/2 md:max-w-lg">

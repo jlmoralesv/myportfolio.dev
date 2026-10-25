@@ -1,5 +1,6 @@
 ---
 import MenuIcon from "./icons/MenuIcon.astro";
+import { useT } from "@/i18n";
 
 interface NavItem {
     title: string;
@@ -8,29 +9,30 @@ interface NavItem {
 }
 
 const { items } = Astro.props as { items: NavItem[] };
+const t = useT(Astro.currentLocale);
 ---
 
-<div class="md:hidden relative mx-3 py-1 px-2 border-1 rounded-md bg-black/10 dark:bg-white/10 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+<div class="md:hidden relative mx-3 py-1 px-2 rounded-md bg-black/10 dark:bg-white/10 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
     <button
         id="navbar-toggle-btn"
-        class="appearance-none border-none flex hover:scale-115 transition"
+        class="appearance-none border-none flex hover:scale-110 transition"
         aria-expanded="false"
         aria-controls="navbar-menu"
     >
-        <span class="sr-only">Open main menu</span>
+        <span class="sr-only">{t.nav.menu}</span>
         <MenuIcon class="size-5 transition-all text-black/60 dark:text-white" />
     </button>
 
     <div
         id="navbar-menu"
-        class="absolute hidden scale-80 top-8 right-0 px-3 pt-2 pb-10 min-w-[18rem] rounded-md border border-gray-100 bg-white/90 dark:bg-gray-900/90 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md"
+        class="absolute hidden top-8 right-0 px-3 pt-2 pb-10 min-w-[18rem] rounded-md border border-gray-100 bg-white dark:bg-gray-900 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md"
     >
         <ul>
         {
             items.map((link) => (
-            <li class="navbar-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm transition-colors">
+            <li class="navbar-menu-option px-2 py-1.5 cursor-pointer hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm transition-colors">
                 <a class="block w-full hover:text-yellow-500 dark:hover:text-yellow-400 text-lg transition-colors"
-                aria-label={link.label} href={link.url}>
+                data-section={link.label} href={link.url}>
                 {link.title}
                 </a>
             </li>
