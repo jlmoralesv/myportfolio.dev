@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "title": "jl mora",
+    "description": "Jose Morales portfolio - Cloud Architect, full stack developer and AI-first engineer"
+  },
+  "nav": {
+    "experiencia": "Experience",
+    "proyectos": "Projects",
+    "sobre-mi": "About me",
+    "contacto": "Contact"
+  },
+  "sections": {
+    "experiencia": "Work experience",
+    "proyectos": "Projects",
+    "sobre-mi": "About me",
+    "contacto": "Get in touch"
+  },
+  "language": {
+    "label": "Change language",
+    "es": "Español",
+    "en": "English"
+  },
+  "theme": {
+    "label": "Choose theme"
+  },
+  "hero": {
+    "logoAlt": "Jose Morales logo - Cloud Architect and full stack developer",
+    "available": "Available for work",
+    "location": "Lima, Peru",
+    "greeting": "Hey, I'm Jose Morales",
+    "roles": [
+      "Full Stack Developer",
+      "Cloud Architect",
+      "AI-First Engineer"
+    ],
+    "bio": "<strong>Full-stack and cloud</strong> software engineer. I build <strong>scalable solutions</strong> with modern architecture and <strong>embedded AI</strong>.",
+    "cv": "View CV"
+  },
+  "experience": [
+    {
+      "date": "Currently ...",
+      "title": "Full Stack Web Developer - Gofacturas",
+      "description": "Building front-end and back-end modules for an inventory, invoicing and sales management system (SaaS). Working with REST APIs and business logic."
+    },
+    {
+      "date": "November 2022 - July 2023",
+      "title": "Course Instructor - EpicGroup",
+      "description": "Taught live introductory programming courses over Zoom for kids, using HTML, CSS, JavaScript and Blender, plus project work (Lean Startup, Kanban, market research, etc.)."
+    }
+  ],
+  "projects": {
+    "categories": {
+      "featured": "Featured",
+      "web": "Web",
+      "api": "APIs",
+      "app": "Apps",
+      "game": "Games",
+      "data": "Data"
+    },
+    "featuredBadge": "Featured",
+    "code": "Code",
+    "site": "site",
+    "empty": "No projects in this section yet.",
+    "items": {
+      "gofacturas": {
+        "title": "Gofacturas CMR",
+        "description": "Business management system: electronic invoicing, reports, inventory and much more."
+      },
+      "goventas": {
+        "title": "Go Ventas",
+        "description": "Business management system: electronic invoicing, reports, inventory and much more."
+      },
+      "appmuni": {
+        "title": "Municipal services app",
+        "description": "App for ID and vehicle plate lookups and other services, built with Flutter and Firebase for the VMT municipality."
+      },
+      "sckincheck": {
+        "title": "Skincheck - AI web app",
+        "description": "Web platform for skin lesion detection, using an AI model trained on Google V8."
+      },
+      "data-analitics": {
+        "title": "Dashboard - Data Analytics",
+        "description": "Data analysis dashboard built with Power BI, Looker Studio and TLS."
+      },
+      "arcade": {
+        "title": "ARCADE game",
+        "description": "Prision Arcana, an arcade game built in Unity with C++ for desktop."
+      },
+      "api": {
+        "title": "REST API with Express",
+        "description": "REST API with Express for a hackathon: CRUD endpoints for courses, students, rooms and more."
+      }
+    }
+  },
+  "carrusel": {
+    "prev": "Previous image",
+    "next": "Next image",
+    "goTo": "Go to image"
+  },
+  "about": {
+    "imageAlt": "jose morales logo",
+    "paragraphs": [
+      "My name is Jose, I'm a <strong>Software Engineer</strong> and I deeply value efficiency and time. That drive is what made me choose this career: it lets me automate processes both for myself and for other people. I'm also passionate about building new solutions through code, turning ideas into useful products.",
+      "That interest led me to <strong>cloud architecture</strong>: designing systems that scale on their own, ship through infrastructure as code and use <strong>AI</strong> as part of the product, not as decoration.",
+      "Along the way I've taken part in <a href=\"https://utp.edu.pe/hackathon-utp-comercio\">hackathons</a>, <a href=\"https://empleabilidadutp.my.canva.site/startuputp\">startup competitions</a>, mentored other students and built personal projects. Those programs taught me a lot and sharpened my competitive side."
+    ]
+  },
+  "contact": {
+    "name": "Name",
+    "namePlaceholder": "Your first and last name",
+    "email": "Your email",
+    "emailPlaceholder": "name@example.com",
+    "subject": "Subject",
+    "subjectPlaceholder": "Subject",
+    "message": "Your message",
+    "messagePlaceholder": "Write something...",
+    "submit": "Send",
+    "mailSubject": "Contact from portfolio",
+    "autoresponse": "Thanks for writing, I'll get back to you soon. - Jose Morales"
+  },
+  "footer": {
+    "components": "Components",
+    "credits": "Credits to <strong>midudev</strong>",
+    "rights": "All rights reserved."
+  }
+}

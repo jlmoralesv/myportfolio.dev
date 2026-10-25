@@ -1,0 +1,60 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Experience from '@/components/Experience.astro';
+import BriefcaseIcon from '@/components/icons/BriefcaseIcon.astro';
+import CodeIcon from '@/components/icons/CodeIcon.astro';
+import Projects from '@/components/Projects.astro';
+import ProfileCheckIcon from '@/components/icons/ProfileCheckIcon.astro';
+import AboutMe from '@/components/AboutMe.astro';
+import SectionContainer from '@/components/SectionContainer.astro';
+import Hero from '@/components/Hero.astro';
+import ContactIcon from '@/components/icons/ContactIcon.astro';
+import Contact from '@/components/Contact.astro';
+import { useT } from '@/i18n';
+
+const t = useT(Astro.currentLocale);
+
+const h2Class = "flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white";
+---
+
+<Layout title={t.meta.title} description={t.meta.description}>
+	<main class="px-4">
+		<SectionContainer class="pt-32 pb-16 md:pt-44 md:pb-24">
+			<Hero />
+		</SectionContainer>
+
+		<div class="space-y-24">
+			<SectionContainer id="experiencia">
+				<h2 class={h2Class} data-reveal>
+					<BriefcaseIcon class="size-8" />
+					{t.sections.experiencia}
+				</h2>
+				<Experience />
+			</SectionContainer>
+
+			<SectionContainer id="proyectos">
+				<h2 class={h2Class} data-reveal>
+					<CodeIcon class="size-7" />
+					{t.sections.proyectos}
+				</h2>
+				<Projects />
+			</SectionContainer>
+
+			<SectionContainer id="sobre-mi">
+				<h2 class={h2Class} data-reveal>
+					<ProfileCheckIcon class="size-8" />
+					{t.sections["sobre-mi"]}
+				</h2>
+				<AboutMe />
+			</SectionContainer>
+
+			<SectionContainer id="contacto">
+				<h2 class={h2Class} data-reveal>
+					<ContactIcon class="size-8" />
+					{t.sections.contacto}
+				</h2>
+				<Contact />
+			</SectionContainer>
+		</div>
+	</main>
+</Layout>

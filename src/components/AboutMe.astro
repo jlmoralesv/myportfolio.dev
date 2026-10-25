@@ -1,15 +1,15 @@
-<article class="flex flex-col items-center justify-center gap-8 text-gray-700 dark:text-gray-300 md:flex-row">
-    <div class="[&>p]:mb-4 [&>p>strong]:text-yellow-400 [&>p>strong]:font-semibold text-pretty order-2 md:order-1" data-reveal>
-        <p>
-            Me llamo Jose, soy <strong>Ingeniero de Software</strong> y valoro profundamente la eficiencia y el tiempo. Esa motivación fue clave para elegir mi carrera, ya que me permite automatizar procesos tanto para mi beneficio como para el de otras personas. Además, me apasiona la posibilidad de crear soluciones nuevas a través del código, transformando ideas en productos útiles.
-        </p>
-        <p>
-            Hoy ese interés me llevó a la <strong>arquitectura cloud</strong>: diseñar sistemas que escalen solos, se desplieguen con infraestructura como código y usen <strong>IA</strong> como parte del producto, no como un adorno.
-        </p>
-        <p>
-            A lo largo de mi carrera participe de, <a href="https://utp.edu.pe/hackathon-utp-comercio" class="transition hover:underline hover:text-yellow-500 dark:hover:text-yellow-200 italic">hackathones</a>, concursos <a href="https://empleabilidadutp.my.canva.site/startuputp" class="transition hover:underline hover:text-yellow-500 dark:hover:text-yellow-200 italic">creando STARTUPS</a>, mentoriando a otros estudiantes y desarrollando proyectos personales. Estos programas me han permitido aprender mucho y desarrollar mas sobre mi personalidad competitiva.
-        </p>
-    </div>
+---
+import { useT } from "@/i18n"
 
-    <img width="200" height="200" class="order-1 object-cover w-64 h-full p-1 md:order-2 rotate-3 lg:p-2 lg:w-64 aspect-square rounded-2xl bg-black/20 dark:bg-yellow-500/5 ring-1 ring-black/70 dark:ring-white/20 transition-transform duration-500 hover:rotate-0 hover:scale-105" style="object-position: 50% 50%; --reveal-delay: 140ms" src="/me.webp" alt="logo jose morales" data-reveal>
+const t = useT(Astro.currentLocale)
+
+const linkClass =
+    "[&_a]:italic [&_a]:transition [&_a:hover]:underline [&_a:hover]:text-yellow-500 dark:[&_a:hover]:text-yellow-200"
+---
+
+<article class="flex flex-col items-center justify-center gap-8 text-gray-700 dark:text-gray-300 md:flex-row">
+    <div class={`[&>p]:mb-4 [&>p>strong]:text-yellow-400 [&>p>strong]:font-semibold text-pretty order-2 md:order-1 ${linkClass}`} data-reveal>
+        {t.about.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
+    </div>
+    <img width="200" height="200" class="order-1 object-cover w-64 h-full p-1 md:order-2 rotate-3 lg:p-2 lg:w-64 aspect-square rounded-2xl bg-black/20 dark:bg-yellow-500/5 ring-1 ring-black/70 dark:ring-white/20 transition-transform duration-500 hover:rotate-0 hover:scale-105" style="object-position: 50% 50%; --reveal-delay: 140ms" src="/me.webp" alt={t.about.imageAlt} data-reveal>
 </article>

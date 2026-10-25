@@ -1,64 +1,70 @@
 ---
+import { getLang, localeRoot, useT } from "@/i18n"
+
+const lang = getLang(Astro.currentLocale)
+const t = useT(lang)
+const redirect = `https://www.moraless.me${localeRoot(lang)}`
+
 const classLabel = "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
 const classInput = "shadow-sm bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-gray-900 text-sm rounded-lg block w-full p-2.5 transition focus:outline-none focus:ring-2 focus:ring-sky-500/60 focus:border-sky-500 dark:placeholder-gray-400 dark:text-white";
 ---
 
 <form class="w-full mx-auto" action="https://formsubmit.co/2ab20756f9f51e1c02ad180bf84725ab" method="POST">
 	<div class="mb-5" data-reveal>
-		<label for="name" class={classLabel}>Nombre</label>
+		<label for="name" class={classLabel}>{t.contact.name}</label>
 		<input
 			type="text"
 			id="name"
 			name="name"
 			class={classInput}
-			placeholder="Tu nombre y apellido"
+			placeholder={t.contact.namePlaceholder}
 			required
 		/>
 	</div>
 	<div class="mb-5 grid md:grid-cols-2 md:gap-6" data-reveal style="--reveal-delay:80ms">
 		<div class="relative z-0 w-full">
-			<label for="email" class={classLabel}>Tu email</label>
+			<label for="email" class={classLabel}>{t.contact.email}</label>
 			<input
 				type="email"
 				id="email"
 				name="email"
 				class={classInput}
-				placeholder="name@ejemplo.com"
+				placeholder={t.contact.emailPlaceholder}
 				required
 			/>
 		</div>
 		<div class="relative z-0 w-full">
-			<label for="subject" class={classLabel}>Asunto</label>
+			<label for="subject" class={classLabel}>{t.contact.subject}</label>
 			<input
 				type="text"
 				id="subject"
 				name="subject"
 				class={classInput}
-				placeholder="Asunto"
+				placeholder={t.contact.subjectPlaceholder}
 				required
 			/>
 		</div>
 	</div>
 	<div class="mb-5" data-reveal style="--reveal-delay:160ms">
-		<label for="message" class={classLabel}>Tu mensaje</label>
+		<label for="message" class={classLabel}>{t.contact.message}</label>
 		<textarea
 			id="message"
 			name="message"
 			rows="2"
 			class={classInput}
-			placeholder="Escribe algo..."></textarea>
+			placeholder={t.contact.messagePlaceholder}></textarea>
 	</div>
 	<div data-reveal style="--reveal-delay:240ms">
 		<input
 			type="submit"
-			value="Enviar"
+			value={t.contact.submit}
 			class="text-white cursor-pointer bg-sky-500 dark:bg-sky-300 dark:text-gray-900 hover:bg-sky-600 dark:hover:bg-sky-400 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:focus:ring-sky-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition"
 		/>
 	</div>
 
-	<input type="hidden" name="_next" value="https://www.moraless.me/index.html">
+	<input type="hidden" name="_next" value={redirect}>
 	<input type="hidden" name="_captcha" value="false">
 	<input type="hidden" name="_template" value="box">
-	<input type="hidden" name="_subject" value="Contacto desde portafolio">
-	<input type="hidden" name="_autoresponse" value="Gracias por escribir, te respondo pronto. - Jose Morales">
+	<input type="hidden" name="_subject" value={t.contact.mailSubject}>
+	<input type="hidden" name="_autoresponse" value={t.contact.autoresponse}>
 </form>

@@ -6,12 +6,10 @@ import SocialPill from "@/components/SocialPill.astro"
 import GitHubIcon from "./icons/GitHubIcon.astro"
 import DowloadIcon from "./icons/DowloadIcon.astro"
 import TechSphere from "./TechSphere.astro"
+import { useT } from "@/i18n"
 
-const personalImageAlt =
-  "Logo de Jose Morales - Cloud Architect y desarrollador full stack"
-
-const ROLES = ["Full Stack Developer", "Cloud Architect", "AI-First Engineer"]
-
+const t = useT(Astro.currentLocale)
+const ROLES = t.hero.roles
 
 ---
 
@@ -20,26 +18,30 @@ const ROLES = ["Full Stack Developer", "Cloud Architect", "AI-First Engineer"]
 
   <div class="relative max-w-xl">
     <div class="flex items-center gap-4 mb-4 fade-up" style="--d:0ms">
-      <img
-        class="w-auto h-12 logo-mark shrink-0"
-        src="/logo_portfolio.png"
-        alt={personalImageAlt}
-        width="103"
-        height="48"
-      />
+      <div
+        class="grid shrink-0 size-14 place-items-center rounded-full border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5"
+      >
+        <img
+          class="w-auto h-5 logo-mark"
+          src="/logo_portfolio.png"
+          alt={t.hero.logoAlt}
+          width="43"
+          height="20"
+        />
+      </div>
       <a
         href="https://www.linkedin.com/in/jlmoralesv/"
         target="_blank"
         rel="noopener"
         class="flex items-center transition md:justify-center md:hover:scale-105"
       >
-        <Badge>Disponible para trabajar</Badge>
+        <Badge>{t.hero.available}</Badge>
       </a>
 
       <span
         class="hidden sm:block px-2 py-0.5 text-[11px] uppercase tracking-wider rounded-md border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-gray-600 dark:text-gray-400"
       >
-        Lima, Peru
+        {t.hero.location}
       </span>
     </div>
 
@@ -47,30 +49,24 @@ const ROLES = ["Full Stack Developer", "Cloud Architect", "AI-First Engineer"]
       class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white fade-up"
       style="--d:80ms"
     >
-      Hey, soy Jose Morales
+      {t.hero.greeting}
     </h1>
 
     <p
       class="mt-4 text-xl font-semibold text-yellow-500 dark:text-yellow-200 fade-up"
       style="--d:140ms"
     >
-      <span class="roles" aria-label={ROLES.join(", ")}>
-        <span class="roles-track">
-          {ROLES.map((role) => <span class="roles-item">{role}</span>)}
-          <span class="roles-item" aria-hidden="true">{ROLES[0]}</span>
-        </span>
-      </span>
-      <span class="caret" aria-hidden="true"></span>
+      <span class="sr-only">{ROLES.join(", ")}</span>
+      <span class="roles" data-roles={JSON.stringify(ROLES)} aria-hidden="true"
+        >{ROLES[0]}</span
+      ><span class="caret" aria-hidden="true"></span>
     </p>
 
     <p
-      class="mt-4 text-lg text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300 text-pretty fade-up"
+      class="mt-4 text-lg text-gray-800 [&>strong]:text-gray-950 dark:[&>strong]:text-white [&>strong]:font-semibold dark:text-gray-300 text-pretty fade-up"
       style="--d:200ms"
     >
-      Me gusta ser dueño del cuadro completo: <strong>del pixel en pantalla al pod
-      en producción</strong>. Arquitectura cloud, infraestructura como código e
-      <strong>IA integrada al producto</strong>. Estudiante de
-      <strong>Ingeniería de Software</strong>.
+      <Fragment set:html={t.hero.bio} />
     </p>
 
     <nav class="flex flex-wrap gap-4 mt-8 fade-up" style="--d:260ms">
@@ -88,7 +84,7 @@ const ROLES = ["Full Stack Developer", "Cloud Architect", "AI-First Engineer"]
       </SocialPill>
       <SocialPill href="https://cv.moraless.me/">
         <DowloadIcon class="size-4 md:size-6" />
-        Ver CV
+        {t.hero.cv}
       </SocialPill>
     </nav>
   </div>
@@ -110,37 +106,9 @@ const ROLES = ["Full Stack Developer", "Cloud Architect", "AI-First Engineer"]
   .roles {
     display: inline-block;
     height: 1.4em;
-    overflow: hidden;
-    vertical-align: bottom;
-  }
-
-  .roles-track {
-    display: block;
-    animation: roles-slide 10.5s cubic-bezier(0.76, 0, 0.24, 1) infinite;
-  }
-
-  .roles-item {
-    display: block;
-    height: 1.4em;
     line-height: 1.4em;
-  }
-
-  @keyframes roles-slide {
-    0%,
-    28% {
-      transform: translateY(0);
-    }
-    33%,
-    61% {
-      transform: translateY(-1.4em);
-    }
-    66%,
-    94% {
-      transform: translateY(-2.8em);
-    }
-    100% {
-      transform: translateY(-4.2em);
-    }
+    vertical-align: bottom;
+    white-space: nowrap;
   }
 
   .caret {
@@ -160,7 +128,6 @@ const ROLES = ["Full Stack Developer", "Cloud Architect", "AI-First Engineer"]
 
   @media (prefers-reduced-motion: reduce) {
     .fade-up,
-    .roles-track,
     .caret {
       animation: none;
       opacity: 1;
@@ -168,3 +135,38 @@ const ROLES = ["Full Stack Developer", "Cloud Architect", "AI-First Engineer"]
     }
   }
 </style>
+
+<script>
+  const roles = document.querySelector<HTMLElement>("[data-roles]")
+  const words: string[] = JSON.parse(roles?.dataset.roles ?? "[]")
+
+  if (
+    roles &&
+    words.length > 1 &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    let index = 0
+    let chars = words[0].length
+    let deleting = true
+
+    const tick = () => {
+      const word = words[index]
+      chars += deleting ? -1 : 1
+      roles.textContent = word.slice(0, chars)
+
+      let delay = deleting ? 45 : 90
+      if (!deleting && chars === word.length) {
+        deleting = true
+        delay = 1900
+      } else if (deleting && chars === 0) {
+        deleting = false
+        index = (index + 1) % words.length
+        delay = 400
+      }
+
+      setTimeout(tick, delay)
+    }
+
+    setTimeout(tick, 1900)
+  }
+</script>

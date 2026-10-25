@@ -5,6 +5,7 @@ import '@fontsource-variable/onest';
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getLang } from '@/i18n';
 
 
 interface Props {
@@ -13,11 +14,12 @@ interface Props {
 }
 
 const { description, title } = Astro.props;
+const lang = getLang(Astro.currentLocale);
 
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={lang} class="dark">
 	<head>
 		<!-- Google Tag Manager -->
 		<script is:inline>

@@ -30,6 +30,9 @@ import LookerIcon from "./icons/LookerIcon.astro";
 import OpenAIIcon from "./icons/OpenAIIcon.astro";
 import OllamaIcon from "./icons/OllamaIcon.astro";
 import Carrusel from "./Carrusel.astro";
+import { useT } from "@/i18n";
+
+const t = useT(Astro.currentLocale);
 
 var classGlobal =
 	"bg-black/5 dark:bg-white/5 border border-white/10 border-gray-300 text-black/70 dark:text-white hover:bg-white/10 hover:scale-105 transition";
@@ -176,9 +179,7 @@ const PROJECTS = [
 	{
 		code: "gofacturas",
 		type: "web",
-		title: "Gofacturas CMR",
-		description:
-			"Sistema de gestión de negocios, emision de facturas electronicas, reportes, inventarios y mucho mas.",
+		featured: true,
 		link: "https://gofacturas.com/",
 		github: "https://github.com/Emermv/gofacturas/",
 		image: [
@@ -197,9 +198,7 @@ const PROJECTS = [
     {
 		code: "goventas",
 		type: "web",
-        title: "Go Ventas",
-        description:
-            "Sistema de gestión de negocios, emision de facturas electronicas, reportes, inventarios y mucho mas.",
+		featured: true,
         link: "https://gofacturas.com/",
         github: "https://github.com/Emermv/gofacturas/",
         image: [
@@ -220,9 +219,7 @@ const PROJECTS = [
 	{
 		code: "appmuni",
 		type: "app",
-		title: "App de consultas municipales",
-		description:
-			"App de consultas de DNI, Placa de vehiculo, y otras funcionalidades, desarrollada con Flutter y Firebase para la municipalidad de VMT.",
+		featured: true,
 		link: "",
 		github: "https://github.com/jlmoralesv/hackathon-api",
 		image: [
@@ -235,9 +232,7 @@ const PROJECTS = [
 	{
 		code: "sckincheck",
 		type: "web",
-		title: "Skincheck - IA web",
-		description:
-			"Plataforma web para la deteccion de lesiones en la piel, usando IA entrenado en V8 de Google.",
+		featured: true,
 		link: "https://skincheck-app.vercel.app",
 		github: "https://github.com/jlmoralesv/skincheck-app",
 		image: [
@@ -251,9 +246,7 @@ const PROJECTS = [
 	{
 		code: "data-analitics",
 		type: "data",
-		title: "Dashboard - Analitica de Datos",
-		description:
-			"Dashboard para el analisis de datos, usando PowerBI, Locker Studio y TLS.",
+		featured: true,
 		link: "https://app.powerbi.com/view?r=eyJrIjoiNWUwMTgyOTctODU1Mi00YzFkLWIzOTctMjNjYTVlODZjNzRiIiwidCI6ImM0YTY2YzM0LTJiYjctNDUxZi04YmUxLWIyYzI2YTQzMDE1OCIsImMiOjR9",
 		github: "",
 		image: [
@@ -267,9 +260,7 @@ const PROJECTS = [
 	{
 		code: "arcade",
 		type: "game",
-		title: "Juego ARCADE",
-		description:
-			"Prision Arcana, juego de tipo arcade desarrollado en Unity con el lenguaje C++, echo para escritorio.",
+		featured: false,
 		link: "",
 		github: "https://github.com/jlmoralesv/prision_arcana",
 		image: [
@@ -281,9 +272,7 @@ const PROJECTS = [
 	{
 		code: "api",
 		type: "api",
-		title: "API REST con Express",
-		description:
-			"API REST con Express para una hackathon, endpoints para CRUD de cursos, alumnos, salas etc.",
+		featured: false,
 		link: "",
 		github: "https://github.com/jlmoralesv/hackathon-api",
 		image: [
@@ -294,14 +283,14 @@ const PROJECTS = [
 	},
 ];
 
-const CATEGORIES = [
-	{ id: "all", name: "Todos" },
-	{ id: "web", name: "Web" },
-	{ id: "api", name: "APIs" },
-	{ id: "app", name: "Apps" },
-	{ id: "game", name: "Juegos" },
-	{ id: "data", name: "Data" },
-];
+const CATEGORIES = (
+	["featured", "web", "api", "app", "game", "data"] as const
+).map((id) => ({ id, name: t.projects.categories[id] }));
+
+const projects = PROJECTS.map((project) => ({
+	...project,
+	...t.projects.items[project.code as keyof typeof t.projects.items],
+}));
 ---
 
 <div class="flex flex-col gap-8">
@@ -313,9 +302,9 @@ const CATEGORIES = [
 				CATEGORIES.map(({ id, name }) => (
 					<li>
 						<button
-							class="category-btn px-4 py-0.5 text-sm rounded-md transition-all duration-300 bg-black/10 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105"
+							class={`category-btn px-4 py-0.5 text-sm rounded-md transition-all duration-300 bg-black/10 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 ${id === "featured" ? "bg-gray-200 dark:bg-gray-700 font-medium" : ""}`}
 							data-category={id}
-							aria-pressed={id === "all" ? "true" : "false"}
+							aria-pressed={id === "featured" ? "true" : "false"}
 						>
 							{name}
 						</button>
@@ -327,23 +316,36 @@ const CATEGORIES = [
 
 	<div class="flex flex-col gap-y-16">
 		{
-			PROJECTS.map(
+			projects.map(
 				(
-					{ code, type, image, title, description, tags, link, github },
+					{ code, type, image, title, description, tags, link, github, featured },
 					index
 				) => (
-					<article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 project-item transition-all duration-300"
+					<article
+						class={`flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 project-item transition-all duration-300 ${!featured ? "is-filtered" : ""}`}
 						data-type={type}
+						data-featured={featured ? "true" : "false"}
 						data-reveal
-						style={`--reveal-delay:${index * 90}ms`}>
+						style={`--reveal-delay:${index * 90}ms`}
+					>
 						<div class="w-full md:w-1/2">
 							<Carrusel images={image} carruselId={code} />
 						</div>
 
 						<div class="w-full md:w-1/2 md:max-w-lg">
-							<h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
-								{title}
-							</h3>
+							<div class="flex items-center gap-x-3">
+								<h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+									{title}
+								</h3>
+								{featured && (
+									<span class="inline-flex items-center gap-x-1 px-2.5 py-0.5 text-xs font-medium rounded-full bg-yellow-500/10 text-yellow-600 dark:text-yellow-300 border border-yellow-500/20">
+										<svg class="size-3 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+											<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+										</svg>
+										{t.projects.featuredBadge}
+									</span>
+								)}
+							</div>
 							<div class="flex flex-wrap mt-2">
 								<ul class="flex flex-wrap mb-2 gap-x-2 gap-y-1">
 									{tags.map((tag) => (
@@ -365,13 +367,13 @@ const CATEGORIES = [
 									{github && (
 										<LinkButton href={github} target="_blank">
 											<GitHubIcon class="size-4" />
-											Codigo
+											{t.projects.code}
 										</LinkButton>
 									)}
 									{link && (
 										<LinkButton href={link} target="_blank">
 											<LinkIcon class="size-4" />
-											web
+											{t.projects.site}
 										</LinkButton>
 									)}
 								</footer>
@@ -381,6 +383,10 @@ const CATEGORIES = [
 				)
 			)
 		}
+
+		<p id="no-projects-msg" class="hidden text-center text-gray-500 dark:text-gray-400 py-8">
+			{t.projects.empty}
+		</p>
 	</div>
 </div>
 
@@ -413,9 +419,10 @@ const CATEGORIES = [
 	const categoryButtons =
 		document.querySelectorAll<HTMLButtonElement>(".category-btn")
 	const projects = document.querySelectorAll<HTMLElement>(".project-item")
+	const noProjectsMsg = document.getElementById("no-projects-msg")
 
 	document
-		.querySelector('[data-category="all"]')
+		.querySelector('[data-category="featured"]')
 		?.classList.add(...ACTIVE_CLASSES)
 
 	categoryButtons.forEach((button) => {
@@ -427,18 +434,28 @@ const CATEGORIES = [
 			button.classList.add(...ACTIVE_CLASSES)
 			button.setAttribute("aria-pressed", "true")
 
-			const selected = button.dataset.category ?? "all"
+			const selected = button.dataset.category ?? "featured"
 
+			let visibleCount = 0
 			projects.forEach((project) => {
-				const visible = selected === "all" || project.dataset.type === selected
+				const visible =
+					selected === "featured"
+						? project.dataset.featured === "true"
+						: project.dataset.type === selected
+
 				project.classList.toggle("is-filtered", !visible)
 				project.classList.remove("filter-in")
 
 				if (!visible) return
+				visibleCount++
 				// reinicia la animacion: sin leer el layout el navegador reusa el frame anterior
 				void project.offsetWidth
 				project.classList.add("filter-in")
 			})
+
+			if (noProjectsMsg) {
+				noProjectsMsg.classList.toggle("hidden", visibleCount > 0)
+			}
 		})
 	})
 </script>

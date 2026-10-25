@@ -1,34 +1,52 @@
 ---
+import ChevronIcon from "./icons/ChevronIcon.astro"
+import FlagEnIcon from "./icons/FlagEnIcon.astro"
+import FlagEsIcon from "./icons/FlagEsIcon.astro"
+import { LANGS, getLang, localeRoot, useT } from "@/i18n"
 
-import ChevronIcon from "./icons/ChevronIcon.astro";
+const FLAGS = { es: FlagEsIcon, en: FlagEnIcon }
+const flagClass = "w-5 h-3.5 shrink-0 rounded-sm ring-1 ring-black/20 dark:ring-white/20"
 
+const lang = getLang(Astro.currentLocale)
+const t = useT(lang)
+const CurrentFlag = FLAGS[lang]
 ---
 
-<div class="relative inline-block text-left">
+<div class="relative inline-block mx-1 text-left">
   <div
-    class="group rounded text-sm font-semibold transition-all hover:bg-gray-300 dark:hover:bg-gray-800 border-2 border-black/10 dark:border-white/10"
+    class="group rounded-md text-sm font-semibold transition-all hover:bg-gray-200 dark:hover:bg-gray-800 bg-black/10 dark:bg-white/10"
   >
     <button
       type="button"
-      class="inline-flex justify-start items-center w-full gap-x-2 px-3 py-2"
-      aria-expanded="true"
+      class="inline-flex justify-start items-center w-full gap-x-1.5 px-2 py-1"
       aria-haspopup="true"
+      aria-label={t.language.label}
     >
-      <span>ES</span>
+      <CurrentFlag class={flagClass} />
+      <span class="uppercase">{lang}</span>
       <ChevronIcon class="size-4 -mr-1" />
     </button>
     <ul
-      class="group-hover:block group-hover:animate-fade-down group-hover:animate-duration-200 hidden absolute w-full"
+      class="group-hover:block group-focus-within:block hidden absolute right-0 min-w-full pt-1"
     >
-
-          <li class="">
-            <a
-              class="rounded hover:bg-gray-300 dark:hover:bg-gray-800 border-2 -mx-0.5 border-black/10 dark:border-white/10 whitespace-no-wrap inline-flex justify-start items-center w-full gap-x-2 px-3 py-2"
-              href="#"
-            >
-              <span>EN</span>
-            </a>
-          </li>
+      {
+        LANGS.filter((code) => code !== lang).map((code) => {
+          const Flag = FLAGS[code]
+          return (
+            <li>
+              <a
+                class="rounded-md bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 whitespace-nowrap inline-flex justify-start items-center w-full gap-x-1.5 px-2 py-1"
+                href={localeRoot(code)}
+                hreflang={code}
+                aria-label={t.language[code]}
+              >
+                <Flag class={flagClass} />
+                <span class="uppercase">{code}</span>
+              </a>
+            </li>
+          )
+        })
+      }
     </ul>
   </div>
 </div>

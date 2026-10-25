@@ -1,5 +1,9 @@
 ---
-    const currentYear = new Date().getFullYear();
+import { useT } from "@/i18n"
+
+const t = useT(Astro.currentLocale)
+
+const currentYear = new Date().getFullYear();
     const linkClass = "me-4 md:me-6 text-gray-700 dark:text-gray-300 transition-colors hover:text-yellow-500 dark:hover:text-yellow-200 hover:underline";
 ---
 
@@ -11,14 +15,14 @@
             </a>
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0">
                 <li>
-                    <a href="/components" class={linkClass}>Componentes</a>
+                    <a href="/components" class={linkClass}>{t.footer.components}</a>
                 </li>
                 <li>
-                    <a href="https://github.com/midudev/" class={linkClass}>Creditos a <strong>midudev</strong></a>
+                    <a href="https://github.com/midudev/" class={linkClass} set:html={t.footer.credits}></a>
                 </li>
             </ul>
         </div>
         <hr class="my-6 border-gray-400 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span class="block text-xs text-yellow-400 dark:text-yellow-200/90 sm:text-center sm:text-sm">© {currentYear} <a href="https://www.linkedin.com/in/jlmoralesv/" class="transition hover:underline hover:opacity-80">JossMorales™</a>. Todos los derechos reservados.</span>
+        <span class="block text-xs text-yellow-400 dark:text-yellow-200/90 sm:text-center sm:text-sm">© {currentYear} <a href="https://www.linkedin.com/in/jlmoralesv/" class="transition hover:underline hover:opacity-80">JossMorales™</a>. {t.footer.rights}</span>
     </div>
 </footer>

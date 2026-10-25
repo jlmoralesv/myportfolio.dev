@@ -1,5 +1,8 @@
 ---
 import ChevronIcon from "./icons/ChevronIcon.astro"
+import { useT } from "@/i18n"
+
+const t = useT(Astro.currentLocale)
 
 const { images, carruselId } = Astro.props
 
@@ -33,7 +36,7 @@ const navButtonClass =
         <button
           data-prev
           type="button"
-          aria-label="Imagen anterior"
+          aria-label={t.carrusel.prev}
           class={`left-2 ${navButtonClass}`}
         >
           <ChevronIcon class="size-5 rotate-90" />
@@ -41,7 +44,7 @@ const navButtonClass =
         <button
           data-next
           type="button"
-          aria-label="Imagen siguiente"
+          aria-label={t.carrusel.next}
           class={`right-2 ${navButtonClass}`}
         >
           <ChevronIcon class="size-5 -rotate-90" />
@@ -52,7 +55,7 @@ const navButtonClass =
             <button
               data-dot
               type="button"
-              aria-label={`Ir a la imagen ${idx + 1}`}
+              aria-label={`${t.carrusel.goTo} ${idx + 1}`}
               aria-current={idx === 0 ? "true" : "false"}
               class="h-1.5 w-1.5 rounded-full bg-white/50 transition-all duration-300 hover:bg-white"
             />

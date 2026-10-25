@@ -70,10 +70,11 @@ const points = TECH.map((Icon, i) => {
   .sphere-stage {
     position: absolute;
     top: 50%;
-    right: 1.5rem;
+    right: 0;
     width: 19rem;
     height: 19rem;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scale(0.9);
+    transform-origin: center right;
     perspective: 1000px;
     /* se desvanece hacia la izquierda, donde vive el texto del hero */
     mask-image: linear-gradient(to right, transparent, #000 62%);

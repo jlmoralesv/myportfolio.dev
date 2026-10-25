@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "title": "jl mora",
+    "description": "Portafolio de Jose Morales - Cloud Architect, desarrollador full stack y AI-first"
+  },
+  "nav": {
+    "experiencia": "Experiencia",
+    "proyectos": "Proyectos",
+    "sobre-mi": "Sobre mí",
+    "contacto": "Contacto"
+  },
+  "sections": {
+    "experiencia": "Experiencia laboral",
+    "proyectos": "Proyectos",
+    "sobre-mi": "Sobre mí",
+    "contacto": "Contactame"
+  },
+  "language": {
+    "label": "Cambiar idioma",
+    "es": "Español",
+    "en": "English"
+  },
+  "theme": {
+    "label": "Elige el tema"
+  },
+  "hero": {
+    "logoAlt": "Logo de Jose Morales - Cloud Architect y desarrollador full stack",
+    "available": "Disponible para trabajar",
+    "location": "Lima, Peru",
+    "greeting": "Hey, soy Jose Morales",
+    "roles": [
+      "Full Stack Developer",
+      "Cloud Architect",
+      "AI-First Engineer"
+    ],
+    "bio": "Ingeniero de software <strong>full-stack y cloud</strong>. Construyo <strong>soluciones escalables</strong> con arquitectura moderna e <strong>IA integrada</strong>.",
+    "cv": "Ver CV"
+  },
+  "experience": [
+    {
+      "date": "Actualmente ...",
+      "title": "Desarrollador Web Full Stack - Gofacturas",
+      "description": "Desarrollando modulos de front-end y back-end, para la creacion un sistema de gestión de inventario, facturacion y ventas (serivicios SAS). Trabajando con conceptos como API REST, Logica de Negocio."
+    },
+    {
+      "date": "Noviembre 2022 - Julio 2023",
+      "title": "Dictado de Cursos - EpicGroup",
+      "description": "Dictado de cursos de programacion basica en vivo a travez de la plataforma zoom, clases dedicada a niños. Trabajando con tecnologias como HTML, CSS, JavaScript, Blender y desarrollo de proyectos (Lean Startup, Kanban, Estudio de mercado etc.)."
+    }
+  ],
+  "projects": {
+    "categories": {
+      "featured": "Destacados",
+      "web": "Web",
+      "api": "APIs",
+      "app": "Apps",
+      "game": "Juegos",
+      "data": "Data"
+    },
+    "featuredBadge": "Destacado",
+    "code": "Codigo",
+    "site": "web",
+    "empty": "No hay proyectos en esta sección por el momento.",
+    "items": {
+      "gofacturas": {
+        "title": "Gofacturas CMR",
+        "description": "Sistema de gestión de negocios, emision de facturas electronicas, reportes, inventarios y mucho mas."
+      },
+      "goventas": {
+        "title": "Go Ventas",
+        "description": "Sistema de gestión de negocios, emision de facturas electronicas, reportes, inventarios y mucho mas."
+      },
+      "appmuni": {
+        "title": "App de consultas municipales",
+        "description": "App de consultas de DNI, Placa de vehiculo, y otras funcionalidades, desarrollada con Flutter y Firebase para la municipalidad de VMT."
+      },
+      "sckincheck": {
+        "title": "Skincheck - IA web",
+        "description": "Plataforma web para la deteccion de lesiones en la piel, usando IA entrenado en V8 de Google."
+      },
+      "data-analitics": {
+        "title": "Dashboard - Analitica de Datos",
+        "description": "Dashboard para el analisis de datos, usando PowerBI, Locker Studio y TLS."
+      },
+      "arcade": {
+        "title": "Juego ARCADE",
+        "description": "Prision Arcana, juego de tipo arcade desarrollado en Unity con el lenguaje C++, echo para escritorio."
+      },
+      "api": {
+        "title": "API REST con Express",
+        "description": "API REST con Express para una hackathon, endpoints para CRUD de cursos, alumnos, salas etc."
+      }
+    }
+  },
+  "carrusel": {
+    "prev": "Imagen anterior",
+    "next": "Imagen siguiente",
+    "goTo": "Ir a la imagen"
+  },
+  "about": {
+    "imageAlt": "logo jose morales",
+    "paragraphs": [
+      "Me llamo Jose, soy <strong>Ingeniero de Software</strong> y valoro profundamente la eficiencia y el tiempo. Esa motivación fue clave para elegir mi carrera, ya que me permite automatizar procesos tanto para mi beneficio como para el de otras personas. Además, me apasiona la posibilidad de crear soluciones nuevas a través del código, transformando ideas en productos útiles.",
+      "Hoy ese interés me llevó a la <strong>arquitectura cloud</strong>: diseñar sistemas que escalen solos, se desplieguen con infraestructura como código y usen <strong>IA</strong> como parte del producto, no como un adorno.",
+      "A lo largo de mi carrera participe de, <a href=\"https://utp.edu.pe/hackathon-utp-comercio\">hackathones</a>, concursos <a href=\"https://empleabilidadutp.my.canva.site/startuputp\">creando STARTUPS</a>, mentoriando a otros estudiantes y desarrollando proyectos personales. Estos programas me han permitido aprender mucho y desarrollar mas sobre mi personalidad competitiva."
+    ]
+  },
+  "contact": {
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre y apellido",
+    "email": "Tu email",
+    "emailPlaceholder": "name@ejemplo.com",
+    "subject": "Asunto",
+    "subjectPlaceholder": "Asunto",
+    "message": "Tu mensaje",
+    "messagePlaceholder": "Escribe algo...",
+    "submit": "Enviar",
+    "mailSubject": "Contacto desde portafolio",
+    "autoresponse": "Gracias por escribir, te respondo pronto. - Jose Morales"
+  },
+  "footer": {
+    "components": "Componentes",
+    "credits": "Creditos a <strong>midudev</strong>",
+    "rights": "Todos los derechos reservados."
+  }
+}
