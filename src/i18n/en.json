@@ -43,8 +43,19 @@
   "experience": [
     {
       "date": "Currently ...",
+      "title": "Co-Founder & CTO - Influplace",
+      "description": "I lead the product's technology vision and scalability, aligning engineering decisions with the business's strategic goals. I set the development standards and stack choices that support the team's growth, and I run the cloud infrastructure and continuous deployment behind the service's availability and security."
+    },
+    {
+      "date": "Currently ...",
+      "title": "Co-Founder & CTO - CVMatcher",
+      "description": "End-to-end leadership of technology and product, from the technical solution and cloud infrastructure to data architecture and platform monetization. I designed the cloud topology behind the data-intensive processing at the core of the business, optimizing performance, security and operating costs."
+    },
+    {
+      "date": "Currently ...",
       "title": "Full Stack Web Developer - Gofacturas",
-      "description": "Building front-end and back-end modules for an inventory, invoicing and sales management system (SaaS). Working with REST APIs and business logic."
+      "description": "End-to-end development of custom enterprise and SaaS solutions: ERP modules for education, inventory, logistics and collections. I take part from requirements gathering and business analysis through technical design and integration. Frontend with React, Next.js and Flutter; REST APIs under SCRUM.",
+      "link": "https://www.linkedin.com/company/gofacturas"
     },
     {
       "date": "November 2022 - July 2023",

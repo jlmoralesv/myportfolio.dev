@@ -3,21 +3,14 @@ import ExperienceItem from "./ExperienceItem.astro"
 import { useT } from "@/i18n"
 
 const t = useT(Astro.currentLocale)
-
-const LINKS = ["https://www.linkedin.com/company/gofacturas", undefined]
-
-const EXPERIENCE = t.experience.map((item, index) => ({
-    ...item,
-    link: LINKS[index],
-}))
 ---
 
 
 <ol class="relative border-s border-gray-200 dark:border-gray-700 ml-2">
     {
-        EXPERIENCE.map((experience, index) => (
+        t.experience.map((experience, index) => (
         <li
-            class="mb-10 ms-4 group/exp"
+            class="relative mb-10 ms-4 group/exp"
             data-reveal
             style={`--reveal-delay:${index * 120}ms`}
         >
