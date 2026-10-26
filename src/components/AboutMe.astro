@@ -9,7 +9,7 @@ const linkClass =
 
 <div class="relative overflow-hidden">
     <div
-        class="pointer-events-none mx-auto mb-8 w-56 select-none overflow-hidden sm:w-64 md:absolute md:-right-12 md:top-1/2 md:mx-0 md:mb-0 md:w-[380px] md:-translate-y-1/2 lg:-right-20 lg:w-[440px]"
+        class="pointer-events-none mx-auto mb-8 w-56 select-none overflow-hidden sm:w-64 md:absolute md:-right-12 md:top-1/2 md:mx-0 md:mb-0 md:w-[380px] md:-translate-y-1/2 lg:-right-20 lg:w-[480px]"
     >
         <div
             class="photo-blend absolute inset-[12%] rounded-full bg-yellow-500/10 blur-2xl dark:bg-yellow-400/[0.07]"
@@ -29,7 +29,7 @@ const linkClass =
     </div>
 
     <div
-        class={`relative z-10 w-full md:max-w-[58%] lg:max-w-[460px] text-gray-700 dark:text-gray-300 text-pretty space-y-4 [&>p>strong]:text-yellow-700 dark:[&>p>strong]:text-yellow-200 [&>p>strong]:font-semibold text-base sm:text-lg leading-relaxed ${linkClass}`}
+        class={`relative z-10 w-full md:max-w-[58%] lg:max-w-[560px] text-gray-700 dark:text-gray-300 text-pretty space-y-4 [&>p>strong]:text-yellow-700 dark:[&>p>strong]:text-yellow-200 [&>p>strong]:font-semibold text-base sm:text-lg leading-relaxed ${linkClass}`}
         data-reveal
     >
         {t.about.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
