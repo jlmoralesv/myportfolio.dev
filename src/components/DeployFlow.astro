@@ -1,0 +1,188 @@
+---
+import AWSELBIcon from "./icons/AWSELBIcon.astro"
+import AmazonCloudWatchIcon from "./icons/AmazonCloudWatchIcon.astro"
+import AmazonECRIcon from "./icons/AmazonECRIcon.astro"
+import AmazonECSIcon from "./icons/AmazonECSIcon.astro"
+import GitHubActionsIcon from "./icons/GitHubActionsIcon.astro"
+import GitHubIcon from "./icons/GitHubIcon.astro"
+import TerraformIcon from "./icons/TerraformIcon.astro"
+
+const NODES = [
+  { Icon: GitHubIcon, name: "GitHub", x: 105, y: 16, t: 0 },
+  { Icon: GitHubActionsIcon, name: "Actions", x: 105, y: 84, t: 1.2 },
+  { Icon: AmazonECRIcon, name: "ECR", x: 40, y: 152, t: 2.4 },
+  { Icon: TerraformIcon, name: "Terraform", x: 170, y: 152, t: 2.4 },
+  { Icon: AmazonECSIcon, name: "ECS", x: 105, y: 220, t: 3.6 },
+  { Icon: AWSELBIcon, name: "Load Balancer", x: 40, y: 288, t: 4.8 },
+  { Icon: AmazonCloudWatchIcon, name: "CloudWatch", x: 170, y: 288, t: 4.8 },
+]
+
+const EDGES = [
+  { d: "M105,48 V68", t: 0 },
+  { d: "M105,116 V121 Q105,126 100,126 H45 Q40,126 40,131 V136", t: 1.2 },
+  { d: "M105,116 V121 Q105,126 110,126 H165 Q170,126 170,131 V136", t: 1.2 },
+  { d: "M40,184 V189 Q40,194 45,194 H100 Q105,194 105,199 V204", t: 2.4 },
+  { d: "M170,184 V189 Q170,194 165,194 H110 Q105,194 105,199 V204", t: 2.4 },
+  { d: "M105,252 V257 Q105,262 100,262 H45 Q40,262 40,267 V272", t: 3.6 },
+  { d: "M105,252 V257 Q105,262 110,262 H165 Q170,262 170,267 V272", t: 3.6 },
+]
+---
+
+<div
+  class="absolute inset-y-0 right-0 hidden items-center pointer-events-none lg:flex"
+  aria-hidden="true"
+>
+  <div class="arch">
+    <svg class="arch-lines" viewBox="0 0 210 320" fill="none">
+      {EDGES.map(({ d }) => <path d={d} class="arch-edge" />)}
+    </svg>
+
+    {
+      EDGES.map(({ d, t: delay }) => (
+        <span class="arch-dot" style={`--d:path("${d}"); --t:${delay}s`} />
+      ))
+    }
+
+    {
+      NODES.map(({ Icon, name, x, y, t: delay }) => (
+        <div class="arch-node" style={`--x:${x}px; --y:${y}px; --t:${delay}s`}>
+          <Icon class="arch-icon" />
+          <span class="arch-name">{name}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .arch {
+    --cycle: 6s;
+    --icon: 1.5rem;
+    position: relative;
+    width: 210px;
+    height: 320px;
+  }
+
+  .arch-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .arch-edge {
+    stroke: rgba(15, 23, 42, 0.2);
+    stroke-width: 1;
+  }
+
+  .arch-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    margin: -2px 0 0 -2px;
+    border-radius: 50%;
+    background: #0ea5e9;
+    box-shadow: 0 0 5px 1px rgba(14, 165, 233, 0.55);
+    offset-path: var(--d);
+    offset-rotate: 0deg;
+    animation: arch-travel var(--cycle) linear infinite;
+    animation-delay: var(--t);
+    display: none;
+  }
+
+  /* sin motion path la bolita se quedaria clavada arriba a la izquierda */
+  @supports (offset-path: path("M 0 0 L 1 1")) {
+    .arch-dot {
+      display: block;
+    }
+  }
+
+  @keyframes arch-travel {
+    0% {
+      offset-distance: 0%;
+      opacity: 0;
+    }
+    3% {
+      opacity: 1;
+    }
+    17% {
+      opacity: 1;
+    }
+    20% {
+      offset-distance: 100%;
+      opacity: 0;
+    }
+    100% {
+      offset-distance: 100%;
+      opacity: 0;
+    }
+  }
+
+  .arch-node {
+    position: absolute;
+    left: var(--x);
+    top: calc(var(--y) - var(--icon) / 2);
+    display: grid;
+    justify-items: center;
+    width: max-content;
+    transform: translateX(-50%);
+    opacity: 0.4;
+    animation: arch-on var(--cycle) linear infinite both;
+    animation-delay: var(--t);
+  }
+
+  @keyframes arch-on {
+    0%,
+    100% {
+      opacity: 0.4;
+    }
+    4%,
+    16% {
+      opacity: 1;
+    }
+    26% {
+      opacity: 0.4;
+    }
+  }
+
+  .arch-icon {
+    width: var(--icon);
+    height: var(--icon);
+    border-radius: 0.1875rem;
+    color: rgba(15, 23, 42, 0.85);
+  }
+
+  .arch-name {
+    margin-top: 0.25rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.1;
+    white-space: nowrap;
+    color: rgb(55 65 81);
+  }
+
+  :global(.dark) .arch-edge {
+    stroke: rgba(255, 255, 255, 0.24);
+  }
+
+  :global(.dark) .arch-icon {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  :global(.dark) .arch-name {
+    color: rgb(209 213 219);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .arch-dot {
+      display: none;
+    }
+
+    .arch-node {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>
