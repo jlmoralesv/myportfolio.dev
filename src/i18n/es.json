@@ -77,6 +77,26 @@
     "site": "web",
     "empty": "No hay proyectos en esta sección por el momento.",
     "items": {
+      "cvmatcher": {
+        "title": "CVMatcher",
+        "description": "Dirección técnica y arquitectura cloud de la plataforma y su app móvil, con procesamiento intensivo de datos."
+      },
+      "influplace": {
+        "title": "Influplace",
+        "description": "Dirección técnica y arquitectura de la infraestructura, desplegada en AWS con alta disponibilidad."
+      },
+      "goeduka": {
+        "title": "GoEduka",
+        "description": "Sistema de gestión educativa para primaria y secundaria, con calificación automática de exámenes por OCR."
+      },
+      "netcall": {
+        "title": "Netcall CRM",
+        "description": "Gestión de atención al cliente y registro de llamadas, dimensionado para más de 20,000 usuarios."
+      },
+      "monitoreo": {
+        "title": "Monitoreo Cloud",
+        "description": "Plataforma centralizada de observabilidad para los servicios y microservicios de Influplace y CVMatcher."
+      },
       "gofacturas": {
         "title": "Gofacturas CMR",
         "description": "Sistema de gestión de negocios, emision de facturas electronicas, reportes, inventarios y mucho mas."

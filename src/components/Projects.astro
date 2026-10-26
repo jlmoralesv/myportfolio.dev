@@ -29,6 +29,12 @@ import PythonIcon from "./icons/PythonIcon.astro";
 import LookerIcon from "./icons/LookerIcon.astro";
 import OpenAIIcon from "./icons/OpenAIIcon.astro";
 import OllamaIcon from "./icons/OllamaIcon.astro";
+import AWSIcon from "./icons/AWSIcon.astro";
+import ReactIcon from "./icons/ReactIcon.astro";
+import GoogleCloudIcon from "./icons/GoogleCloudIcon.astro";
+import GrafanaIcon from "./icons/GrafanaIcon.astro";
+import OCRIcon from "./icons/OCRIcon.astro";
+import AndroidIcon from "./icons/AndroidIcon.astro";
 import Carrusel from "./Carrusel.astro";
 import { useT } from "@/i18n";
 
@@ -173,13 +179,139 @@ const TAGS = {
 		class: classGlobal,
 		icon: OllamaIcon,
 	},
+	AWS: {
+		name: "AWS",
+		class: classGlobal,
+		icon: AWSIcon,
+	},
+	React: {
+		name: "React",
+		class: classGlobal,
+		icon: ReactIcon,
+	},
+	ReactNative: {
+		name: "React Native",
+		class: classGlobal,
+		icon: ReactIcon,
+	},
+	GoogleCloud: {
+		name: "Google Cloud",
+		class: classGlobal,
+		icon: GoogleCloudIcon,
+	},
+	Grafana: {
+		name: "Grafana",
+		class: classGlobal,
+		icon: GrafanaIcon,
+	},
+	OCR: {
+		name: "OCR",
+		class: classGlobal,
+		icon: OCRIcon,
+	},
+	Android: {
+		name: "Android",
+		class: classGlobal,
+		icon: AndroidIcon,
+	},
 };
 
 const PROJECTS = [
 	{
-		code: "gofacturas",
+		code: "cvmatcher",
+		// type admite varias categorias separadas por espacio
+		type: "app web",
+		featured: true,
+		link: "https://www.cvmatcher.app/",
+		github: "",
+		image: [
+			{ src: "/projects/cvmatcher1.webp" },
+			{ src: "/projects/cvmatcher2.webp" },
+			{ src: "/projects/cvmatcher3.webp" },
+		],
+		tags: [
+			TAGS.Node,
+			TAGS.React,
+			TAGS.AWS,
+			TAGS.Android,
+		],
+	},
+	{
+		code: "influplace",
 		type: "web",
 		featured: true,
+		link: "https://www.influplace.com/",
+		github: "",
+		image: [
+			{ src: "/projects/influplace1.webp" },
+			{ src: "/projects/influplace2.webp" },
+			{ src: "/projects/influplace3.webp" },
+		],
+		tags: [
+			TAGS.Node,
+			TAGS.React,
+			TAGS.AWS,
+			TAGS.Docker,
+		],
+	},
+	{
+		code: "goeduka",
+		type: "web",
+		featured: true,
+		link: "",
+		github: "",
+		image: [
+			{ src: "/projects/goeduka1.webp" },
+			{ src: "/projects/goeduka2.webp" },
+			{ src: "/projects/goeduka3.webp" },
+		],
+		tags: [
+			TAGS.PostgreSQL,
+			TAGS.OCR,
+			TAGS.Docker,
+			TAGS.Go,
+			TAGS.React,
+			TAGS.GoogleCloud,
+		],
+	},
+	{
+		code: "netcall",
+		type: "web",
+		featured: true,
+		link: "",
+		github: "",
+		image: [
+			{ src: "/projects/netcall1.webp" },
+			{ src: "/projects/netcall2.webp" },
+			{ src: "/projects/netcall3.webp" },
+		],
+		tags: [
+			TAGS.React,
+			TAGS.Go,
+			TAGS.GraphQL,
+			TAGS.AWS,
+		],
+	},
+	{
+		code: "monitoreo",
+		type: "data",
+		featured: true,
+		link: "",
+		github: "",
+		image: [
+			{ src: "/projects/monitoreo1.webp" },
+			{ src: "/projects/monitoreo2.webp" },
+		],
+		tags: [
+			TAGS.Grafana,
+			TAGS.PostgreSQL,
+			TAGS.AWS,
+		],
+	},
+	{
+		code: "gofacturas",
+		type: "web",
+		featured: false,
 		link: "https://gofacturas.com/",
 		github: "https://github.com/Emermv/gofacturas/",
 		image: [
@@ -198,7 +330,7 @@ const PROJECTS = [
     {
 		code: "goventas",
 		type: "web",
-		featured: true,
+		featured: false,
         link: "https://gofacturas.com/",
         github: "https://github.com/Emermv/gofacturas/",
         image: [
@@ -219,7 +351,7 @@ const PROJECTS = [
 	{
 		code: "appmuni",
 		type: "app",
-		featured: true,
+		featured: false,
 		link: "",
 		github: "https://github.com/jlmoralesv/hackathon-api",
 		image: [
@@ -232,7 +364,7 @@ const PROJECTS = [
 	{
 		code: "sckincheck",
 		type: "web",
-		featured: true,
+		featured: false,
 		link: "https://skincheck-app.vercel.app",
 		github: "https://github.com/jlmoralesv/skincheck-app",
 		image: [
@@ -246,7 +378,7 @@ const PROJECTS = [
 	{
 		code: "data-analitics",
 		type: "data",
-		featured: true,
+		featured: false,
 		link: "https://app.powerbi.com/view?r=eyJrIjoiNWUwMTgyOTctODU1Mi00YzFkLWIzOTctMjNjYTVlODZjNzRiIiwidCI6ImM0YTY2YzM0LTJiYjctNDUxZi04YmUxLWIyYzI2YTQzMDE1OCIsImMiOjR9",
 		github: "",
 		image: [
@@ -444,7 +576,7 @@ const projects = PROJECTS.map((project) => ({
 				const visible =
 					selected === "featured"
 						? project.dataset.featured === "true"
-						: project.dataset.type === selected
+						: project.dataset.type.split(" ").includes(selected)
 
 				project.classList.toggle("is-filtered", !visible)
 				project.classList.remove("filter-in")
