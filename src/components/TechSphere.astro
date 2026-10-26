@@ -1,35 +1,39 @@
 ---
+import AWSIcon from "./icons/AWSIcon.astro"
 import AngularIcon from "./icons/AngularIcon.astro"
 import CloudflareIcon from "./icons/CloudflareIcon.astro"
-import CppIcon from "./icons/CppIcon.astro"
 import DockerIcon from "./icons/DockerIcon.astro"
-import ExpressIcon from "./icons/ExpressIcon.astro"
 import FlutterIcon from "./icons/FlutterIcon.astro"
+import GitHubActionsIcon from "./icons/GitHubActionsIcon.astro"
 import GoIcon from "./icons/GoIcon.astro"
 import GraphQLIcon from "./icons/GraphQLIcon.astro"
-import JavaScriptIcon from "./icons/JavaScriptIcon.astro"
-import LookerIcon from "./icons/LookerIcon.astro"
+import KubernetesIcon from "./icons/KubernetesIcon.astro"
+import LinuxIcon from "./icons/LinuxIcon.astro"
 import MySQLIcon from "./icons/MySQLIcon.astro"
+import NestJSIcon from "./icons/NestJSIcon.astro"
 import NextIcon from "./icons/NextIcon.astro"
+import NginxIcon from "./icons/NginxIcon.astro"
 import NodeIcon from "./icons/NodeIcon.astro"
 import OllamaIcon from "./icons/OllamaIcon.astro"
 import OpenAIIcon from "./icons/OpenAIIcon.astro"
-import PhpIcon from "./icons/PhpIcon.astro"
 import PostgreSQLIcon from "./icons/PostgreSQLIcon.astro"
 import PowerBIIcon from "./icons/PowerBIIcon.astro"
 import PythonIcon from "./icons/PythonIcon.astro"
 import RedisIcon from "./icons/RedisIcon.astro"
 import SupabaseIcon from "./icons/SupabaseIcon.astro"
-import TailwindIcon from "./icons/TailwindIcon.astro"
+import TerraformIcon from "./icons/TerraformIcon.astro"
 import TypeScriptIcon from "./icons/TypeScriptIcon.astro"
+import VercelIcon from "./icons/VercelIcon.astro"
 import VueJSIcon from "./icons/VueJSIcon.astro"
 
 const TECH = [
-  TypeScriptIcon, JavaScriptIcon, NodeIcon, PythonIcon, GoIcon, PhpIcon,
-  CppIcon, ExpressIcon, VueJSIcon, AngularIcon, NextIcon, TailwindIcon,
-  PostgreSQLIcon, MySQLIcon, RedisIcon, SupabaseIcon, DockerIcon,
-  CloudflareIcon, GraphQLIcon, FlutterIcon, OpenAIIcon, OllamaIcon,
-  PowerBIIcon, LookerIcon,
+  TypeScriptIcon, NodeIcon, NestJSIcon, PythonIcon,
+  GoIcon, VueJSIcon, AngularIcon, NextIcon,
+  GraphQLIcon, PostgreSQLIcon, MySQLIcon, RedisIcon,
+  SupabaseIcon, DockerIcon, KubernetesIcon, AWSIcon,
+  TerraformIcon, CloudflareIcon, NginxIcon, LinuxIcon,
+  GitHubActionsIcon, VercelIcon, FlutterIcon, OpenAIIcon,
+  OllamaIcon, PowerBIIcon,
 ]
 
 const GOLDEN_ANGLE = 137.50776405
@@ -47,21 +51,27 @@ const points = TECH.map((Icon, i) => {
   aria-hidden="true"
 >
   <div class="sphere-stage">
-    <div class="sphere" data-sphere>
-      {
-        points.map(({ Icon, lat, lon }) => (
-          <div
-            class="sphere-item"
-            data-lat={lat}
-            data-lon={lon}
-            style={`--lat:${lat}deg; --lon:${lon}deg`}
-          >
-            <span class="sphere-billboard">
-              <Icon class="sphere-icon" />
-            </span>
-          </div>
-        ))
-      }
+    <div class="sphere-outline"></div>
+    <div class="sphere-tilt">
+      <div class="sphere" data-sphere>
+        <div class="sphere-ring" style="--r:8rem; --y:0rem"></div>
+        <div class="sphere-ring" style="--r:6.55rem; --y:-4.59rem"></div>
+        <div class="sphere-ring" style="--r:6.55rem; --y:4.59rem"></div>
+        {
+          points.map(({ Icon, lat, lon }) => (
+            <div
+              class="sphere-item"
+              data-lat={lat}
+              data-lon={lon}
+              style={`--lat:${lat}deg; --lon:${lon}deg`}
+            >
+              <span class="sphere-billboard">
+                <Icon class="sphere-icon" />
+              </span>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </div>
@@ -81,10 +91,48 @@ const points = TECH.map((Icon, i) => {
     -webkit-mask-image: linear-gradient(to right, transparent, #000 62%);
   }
 
+  /* la inclinacion necesita su propio nodo: GSAP reescribe el transform de
+     .sphere en cada frame y se llevaria por delante cualquier rotateX de aqui */
+  .sphere-tilt {
+    position: absolute;
+    inset: 0;
+    transform: rotateX(-14deg);
+    transform-style: preserve-3d;
+  }
+
   .sphere {
     position: absolute;
     inset: 0;
     transform-style: preserve-3d;
+  }
+
+  /* el contorno va fuera de .sphere: girando sobre Y se aplastaria hasta desaparecer */
+  .sphere-outline,
+  .sphere-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: 50%;
+  }
+
+  .sphere-outline {
+    width: 17.5rem;
+    height: 17.5rem;
+    margin: -8.75rem 0 0 -8.75rem;
+  }
+
+  .sphere-ring {
+    width: calc(var(--r) * 2);
+    height: calc(var(--r) * 2);
+    margin-top: calc(var(--r) * -1);
+    margin-left: calc(var(--r) * -1);
+    transform: translateY(var(--y)) rotateX(90deg);
+  }
+
+  :global(.dark) .sphere-outline,
+  :global(.dark) .sphere-ring {
+    border-color: rgba(255, 255, 255, 0.12);
   }
 
   .sphere-item {
